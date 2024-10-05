@@ -34,7 +34,7 @@
     <li>
         Programming team lead of Utah Student Robotics; President of the
         Undergraduate Student Advisory Committee; Member of National
-        Society for Leadership and Success
+        Society for Leadership and Success.
     </li>
 </ul>
 
@@ -65,7 +65,7 @@
     <p><b>Languages: </b> Rust, Python, Javascript, Typescript, HTML, CSS, C, C++, C#, Java, Kotlin, SQL</ul>
     </p>
     <p><b>Technologies: </b> AWS (S3, EC2, DynamoDB, Amplify, Lambda, Cognito, Pinpoint, SES), Azure, Docker, Vercel,
-        GitHub Actions, WebRTC, WebSockets, Svelte, React, Ansible, Tailwind, Qt, MAUI, Django, Linux</p>
+        GitHub Actions, WebRTC, WebSockets, Svelte, React, Ansible, Tailwind, Qt, MAUI, Django, FFmpeg, Linux</p>
     <p><b>Game Engines: </b> Godot, Unreal Engine 5, GameMaker, Unity</p>
 </section>
 
@@ -102,25 +102,43 @@
 <hr />
 
 <div class="split top-padded">
-    <h3>
-        NASA Lunabotics
-    </h3>
+    <div class="title">
+        <h3>
+            NASA Lunabotics
+        </h3>
+        <p>
+            | Rust, tokio, nalgebra, rayon, crossbeam, ffmpeg
+        </p>
+    </div>
     <p>Aug 2023 - May 2024</p>
 </div>
 <ul>
     <li>
-        Developed a complete robotics framework and ecosystem in Rust from
-        scratch with tokio, nalgebra, crossbeam, wgpu, etc.
+        Developed a complete robotics framework and ecosystem in from scratch (only team to do so).
     </li>
-    <li>3rd place out of 50 universities at the Kennedy Space Center.</li>
-    <li class="no-li"><b>Source: </b><a
-            href="https://github.com/utahrobotics/lunadev-2024">github.com/utahrobotics/lunadev-2024</a></li>
+    <li>
+        Robot digs and dumps autonomously, and uses a 2-pilot system for driving remotely using 6 camera feeds over RTP.
+    </li>
+    <li>3rd place out of 50 universities and the US military at the Kennedy Space Center.</li>
+
+    <li class="no-li">
+        <div class="gapped">
+            <p><b>Demo: </b><a href="https://www.youtube.com/watch?v=OvzOrHbLd_M">youtu.be/watch?v=OvzOrHbLd_M</a></p>
+            <p><b>Source: </b><a
+                href="https://github.com/utahrobotics/lunadev-2024">github.com/utahrobotics/lunadev-2024</a></p>
+        </div>
+    </li>
 </ul>
 
 <div class="split top-padded">
-    <h3>
-        PortalCrawler
-    </h3>
+    <div class="title">
+        <h3>
+            PortalCrawler
+        </h3>
+        <p>
+            | Godot
+        </p>
+    </div>
     <p>May 2024 - Aug 2024</p>
 </div>
 <ul>
@@ -128,7 +146,10 @@
         Traditional Game Development Class Project where I led 4 other members.
     </li>
     <li>
-        Used Godot, Github Issues, Milestones, and Projects for team management with
+        Implemented all the enemy AI and pathfinding, shop, and level system, using state machines.
+    </li>
+    <li>
+        Used Github Issues, Milestones, and Projects for team management with
         Agile workflow.
     </li>
     <li class="no-li">
@@ -141,19 +162,23 @@
 </ul>
 
 <div class="split top-padded">
+    <div class="title">
     <h3>
         WebRTC Signalling Server
     </h3>
+    <p>
+        | Rust, tokio, axum, rustls, letsencrypt, EC2
+    </p>
+    </div>
     <p>Aug 2023</p>
 </div>
 <ul>
     <li>
-        Used Rust (tokio, axum, rustls, letsencrypt) over WebSockets, deployed
-        on AWS EC2.
+        A WebSocket API that connects WebRTC clients together with a room code that is resistant to abuse.
     </li>
     <li>
         Performant, and production ready with TLS; Implemented using
-        <a href="https://crates.io/hypermangle-core">crates.io/hypermangle-core</a>,
+        <a href="https://crates.io/crates/hypermangle-core">crates.io/crates/hypermangle-core</a>,
         which is a crate I published.
     </li>
     <li class="no-li"><b>Source: </b><a
@@ -161,18 +186,23 @@
 </ul>
 
 <div class="split top-padded">
-    <h3>
-        Hack OHI/O 11
-    </h3>
+    <div class="title">
+        <h3>
+            deTrash
+        </h3> 
+        <p>
+            | Vercel, Sveltekit, Flask, TypeScript, Google Maps, YoloV5, GPT 3.5
+        </p>
+    </div>
     <p>Oct 2023</p>
 </div>
 <ul>
     <li>
-        Trash Identification Website
-        using YoloV5, GPT 3.5, Vercel, Sveltekit, Flask, Google Maps, AWS.
+        Developed a frontend that used computer vision AI to identify trash in user submitted images and track their locations
+        on a heatmap.
     </li>
     <li>
-        2nd place out of 247 other teams for 24 hours, with 2 teammates.
+        2nd place out of 247 other teams for 24 hours in the Hack OHI/O 11 hackathon.
     </li>
     <li class="no-li">
         <div class="gapped">
@@ -188,7 +218,7 @@
         font-family: "Times New Roman", serif;
         margin: 0px;
         padding: 0px;
-        font-size: 1rem;
+        font-size: 0.97rem;
     }
 
     hr {
@@ -253,6 +283,16 @@
 
     .no-li {
         list-style: none;
+    }
+
+    .title {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .title > p {
+        margin-left: 0.3rem;
+        font-style: italic;
     }
 
     .gapped {
