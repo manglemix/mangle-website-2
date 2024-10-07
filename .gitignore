@@ -6,6 +6,8 @@ node_modules
 /.svelte-kit
 /build
 
+hero-wasm/target
+
 # OS
 .DS_Store
 Thumbs.db
