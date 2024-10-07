@@ -1,11 +1,23 @@
 <script>
+	import { browser } from '$app/environment';
+
     // https://www.mbaraa.com/blog/using-wasm-with-sveltekit
-	import init, { } from 'hero-wasm';
+	import init, { set_body_1_mass, set_body_2_mass, set_body_3_mass } from 'hero-wasm';
 	import { onMount } from 'svelte';
+
+    var body_1_mass = 1.0;
+    var body_2_mass = 1.0;
+    var body_3_mass = 1.0;
 
 	onMount(async () => {
 		await init(); // init initializes memory addresses needed by WASM and that will be used by JS/TS
 	});
+
+    // if (browser) {
+    //     $: set_body_1_mass(body_1_mass);
+    //     $: set_body_2_mass(body_2_mass);
+    //     $: set_body_3_mass(body_3_mass);
+    // }
 </script>
 
 <svelte:head>
@@ -21,10 +33,11 @@
         <h2>3 Body Problem</h2>
         <div id="hero-wasm-container">
         </div>
+        <h3>Masses</h3>
         <section id="wasm-sliders">
-            <input type="range" min="0" max="100" value="50" />
-            <input type="range" min="0" max="100" value="50" />
-            <input type="range" min="0" max="100" value="50" />
+            <input type="range" min="1" max="10" bind:value={body_1_mass} on:input={() => set_body_1_mass(body_1_mass)} />
+            <input type="range" min="1" max="10" bind:value={body_2_mass} on:input={() => set_body_2_mass(body_2_mass)} />
+            <input type="range" min="1" max="10" bind:value={body_3_mass} on:input={() => set_body_3_mass(body_3_mass)} />
         </section>
     </section>
 </header>

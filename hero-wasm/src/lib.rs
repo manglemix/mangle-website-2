@@ -1,3 +1,6 @@
+use std::mem::transmute;
+use std::sync::atomic::{AtomicU32, Ordering};
+
 use log::error;
 use state::State;
 use wasm_bindgen::prelude::*;
@@ -9,11 +12,24 @@ use winit::window::WindowBuilder;
 
 mod state;
 
-// // export Rust function greet to be used in JS/TS, the same function signature will be used in JS/TS
-// #[wasm_bindgen]
-// pub fn greet(str: &str) {
-//     alert(&format!("Hello, {}!", str));
-// }
+static BODY_1_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
+static BODY_2_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
+static BODY_3_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
+
+#[wasm_bindgen]
+pub fn set_body_1_mass(new_mass: f32) {
+    BODY_1_MASS.store(new_mass.to_bits(), Ordering::Relaxed);
+}
+
+#[wasm_bindgen]
+pub fn set_body_2_mass(new_mass: f32) {
+    BODY_2_MASS.store(new_mass.to_bits(), Ordering::Relaxed);
+}
+
+#[wasm_bindgen]
+pub fn set_body_3_mass(new_mass: f32) {
+    BODY_3_MASS.store(new_mass.to_bits(), Ordering::Relaxed);
+}
 
 #[wasm_bindgen(start)]
 pub async fn run() {

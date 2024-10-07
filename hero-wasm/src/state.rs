@@ -1,5 +1,10 @@
-use log::warn;
+use std::sync::atomic::Ordering;
+
+use nalgebra::Vector2;
+use wgpu::util::DeviceExt;
 use winit::{dpi::PhysicalSize, event::WindowEvent, window::Window};
+
+use crate::{BODY_1_MASS, BODY_2_MASS, BODY_3_MASS};
 
 pub struct State<'a> {
     surface: wgpu::Surface<'a>,
@@ -12,6 +17,8 @@ pub struct State<'a> {
     // unsafe references to the window's resources.
     window: &'a Window,
     render_pipeline: wgpu::RenderPipeline,
+    sim_bind_group: wgpu::BindGroup,
+    body_mass_buffer: wgpu::Buffer,
 }
 
 impl<'a> State<'a> {
@@ -71,11 +78,127 @@ impl<'a> State<'a> {
             desired_maximum_frame_latency: 2,
         };
 
+        let body_pos_buffer = device.create_buffer_init(
+            &wgpu::util::BufferInitDescriptor {
+                label: Some("Body Position Buffer"),
+                contents: bytemuck::cast_slice(&[
+                    [0.0f32, -2.0, 0.0, 0.0],
+                    [-2.0f32, 2.0, 0.0, 0.0],
+                    [2.0f32, 2.0, 0.0, 0.0],
+                    // Vector4::new(0.0, -0.5, 0.0, 0.0),
+                    // Vector4::new(-0.4, 0.5, 0.0, 0.0),
+                    // Vector4::new(0.4, 0.5, 0.0, 0.0),
+                ]),
+                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+            }
+        );
+
+        let origin_buffer = device.create_buffer_init(
+            &wgpu::util::BufferInitDescriptor {
+                label: Some("Origin Buffer"),
+                contents: bytemuck::bytes_of(&
+                    [0.0f32; 4],
+                ),
+                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+            }
+        );
+
+        let body_mass_buffer = device.create_buffer_init(
+            &wgpu::util::BufferInitDescriptor {
+                label: Some("Body Mass Buffer"),
+                contents: bytemuck::bytes_of(&
+                    [1.0f32, 1.0, 1.0, 0.0]
+                ),
+                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+            }
+        );
+
+        let scale_buffer = device.create_buffer_init(
+            &wgpu::util::BufferInitDescriptor {
+                label: Some("Scale Buffer"),
+                contents: bytemuck::bytes_of(&
+                    [8.0f32, 0.0, 0.0, 0.0]
+                ),
+                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+            }
+        );
+
+        let sim_bind_group_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+            entries: &[
+                wgpu::BindGroupLayoutEntry {
+                    binding: 0,
+                    visibility: wgpu::ShaderStages::FRAGMENT,
+                    ty: wgpu::BindingType::Buffer {
+                        ty: wgpu::BufferBindingType::Uniform,
+                        has_dynamic_offset: false,
+                        min_binding_size: None,
+                    },
+                    count: None,
+                },
+                wgpu::BindGroupLayoutEntry {
+                    binding: 1,
+                    visibility: wgpu::ShaderStages::FRAGMENT,
+                    ty: wgpu::BindingType::Buffer {
+                        ty: wgpu::BufferBindingType::Uniform,
+                        has_dynamic_offset: false,
+                        min_binding_size: None,
+                    },
+                    count: None,
+                },
+                wgpu::BindGroupLayoutEntry {
+                    binding: 2,
+                    visibility: wgpu::ShaderStages::FRAGMENT,
+                    ty: wgpu::BindingType::Buffer {
+                        ty: wgpu::BufferBindingType::Uniform,
+                        has_dynamic_offset: false,
+                        min_binding_size: None,
+                    },
+                    count: None,
+                },
+                wgpu::BindGroupLayoutEntry {
+                    binding: 3,
+                    visibility: wgpu::ShaderStages::FRAGMENT,
+                    ty: wgpu::BindingType::Buffer {
+                        ty: wgpu::BufferBindingType::Uniform,
+                        has_dynamic_offset: false,
+                        min_binding_size: None,
+                    },
+                    count: None,
+                }
+            ],
+            label: Some("sim_bind_group_layout"),
+        });
+
+        let sim_bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
+            layout: &sim_bind_group_layout,
+            entries: &[
+                wgpu::BindGroupEntry {
+                    binding: 0,
+                    resource: body_pos_buffer.as_entire_binding(),
+                },
+                wgpu::BindGroupEntry {
+                    binding: 1,
+                    resource: origin_buffer.as_entire_binding(),
+                },
+                wgpu::BindGroupEntry {
+                    binding: 2,
+                    resource: body_mass_buffer.as_entire_binding(),
+                },
+                wgpu::BindGroupEntry {
+                    binding: 3,
+                    resource: scale_buffer.as_entire_binding(),
+                }
+            ],
+            label: Some("sim_bind_group"),
+        });
+
         let shader = device.create_shader_module(wgpu::include_wgsl!("shader.wgsl"));
         let render_pipeline_layout =
         device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
             label: Some("Render Pipeline Layout"),
-            bind_group_layouts: &[],
+            bind_group_layouts: &[
+                &sim_bind_group_layout,
+            ],
             push_constant_ranges: &[],
         });
         let render_pipeline = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
@@ -126,7 +249,9 @@ impl<'a> State<'a> {
             queue,
             config,
             size,
-            render_pipeline
+            render_pipeline,
+            sim_bind_group,
+            body_mass_buffer
         }
     }
 
@@ -176,12 +301,7 @@ impl<'a> State<'a> {
                     view: &view,
                     resolve_target: None,
                     ops: wgpu::Operations {
-                        load: wgpu::LoadOp::Clear(wgpu::Color {
-                            r: 0.1,
-                            g: 0.2,
-                            b: 0.3,
-                            a: 1.0,
-                        }),
+                        load: wgpu::LoadOp::Clear(wgpu::Color::BLACK),
                         store: wgpu::StoreOp::Store,
                     },
                 })],
@@ -190,10 +310,17 @@ impl<'a> State<'a> {
                 timestamp_writes: None,
             });
 
-            render_pass.set_pipeline(&self.render_pipeline); // 2.
-            render_pass.draw(0..3, 0..1);
+            render_pass.set_pipeline(&self.render_pipeline);
+            render_pass.set_bind_group(0, &self.sim_bind_group, &[]);
+            render_pass.draw(0..6, 0..1);
         }
 
+        self.queue.write_buffer(&self.body_mass_buffer, 0, bytemuck::cast_slice(&[
+            BODY_1_MASS.load(Ordering::Relaxed),
+            BODY_2_MASS.load(Ordering::Relaxed),
+            BODY_3_MASS.load(Ordering::Relaxed),
+            0
+        ]));
         // submit will accept anything that implements IntoIter
         self.queue.submit(std::iter::once(encoder.finish()));
         output.present();
