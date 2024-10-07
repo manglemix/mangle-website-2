@@ -1,4 +1,4 @@
-use log::info;
+use log::warn;
 use winit::{dpi::PhysicalSize, event::WindowEvent, window::Window};
 
 pub struct State<'a> {
@@ -146,7 +146,6 @@ impl<'a> State<'a> {
             self.config.height = new_size.height;
             self.surface.configure(&self.device, &self.config);
         }
-        info!("Resized to {:?}", self.size);
     }
 
     pub fn get_size(&self) -> PhysicalSize<u32> {

@@ -17,8 +17,16 @@
         <h1>Hello World!</h1>
         <span id="i-am">I am</span><span id="name-title">Najman Husaini</span>
     </section>
-    <div id="hero-wasm-container">
-    </div>
+    <section id="hero-wasm-panel">
+        <h2>3 Body Problem</h2>
+        <div id="hero-wasm-container">
+        </div>
+        <section id="wasm-sliders">
+            <input type="range" min="0" max="100" value="50" />
+            <input type="range" min="0" max="100" value="50" />
+            <input type="range" min="0" max="100" value="50" />
+        </section>
+    </section>
 </header>
 
 <style>
@@ -46,6 +54,29 @@
     }
 
     #hero-wasm-container {
+        display: flex;
+        overflow: clip;
+        aspect-ratio: 1 / 1;
+        border-radius: 2rem;
+    }
+
+    #hero-wasm-panel {
+        flex-grow: 1;
+        display: flex;
+        max-width: 20rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: stretch;
+    }
+
+    #wasm-sliders {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    #wasm-sliders input {
+        min-width: 0;
         flex-grow: 1;
     }
 </style>
