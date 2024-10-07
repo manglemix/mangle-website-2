@@ -1,7 +1,6 @@
-use log::{error, info};
+use log::error;
 use state::State;
 use wasm_bindgen::prelude::*;
-use web_sys::console::info;
 use winit::dpi::PhysicalSize;
 use winit::event::{Event, WindowEvent};
 use winit::event_loop::EventLoop;
@@ -24,7 +23,6 @@ pub async fn run() {
 
     let event_loop = EventLoop::new().unwrap();
     let window = WindowBuilder::new().build(&event_loop).unwrap();
-    let _ = window.request_inner_size(PhysicalSize::new(450, 400));
 
     let container = web_sys::window()
         .and_then(|win| win.document())
@@ -37,7 +35,6 @@ pub async fn run() {
         .expect("Couldn't append canvas to document body.");
 
     let mut state = State::new(&window).await;
-    info!("State created");
 
     event_loop
         .run(move |event, _control_flow| {
@@ -48,10 +45,9 @@ pub async fn run() {
                 } if window_id == state.window().id() => {
                     if !state.input(event) {
                         match event {
-                            // WindowEvent::Resized(physical_size) => {
-                            //     state.resize(*physical_size);
-                            // }
                             WindowEvent::RedrawRequested => {
+                                let rect = container.get_bounding_client_rect();
+                                state.match_parent(PhysicalSize::new(rect.width().round() as u32, rect.height().round() as u32));
                                 state.update();
                                 match state.render() {
                                     Ok(_) => {}
