@@ -1,10 +1,9 @@
 use std::sync::atomic::Ordering;
 
-use nalgebra::Vector2;
 use wgpu::util::DeviceExt;
 use winit::{dpi::PhysicalSize, event::WindowEvent, window::Window};
 
-use crate::{BODY_1_MASS, BODY_2_MASS, BODY_3_MASS};
+use crate::{sim::Sim, BODY_1_MASS, BODY_2_MASS, BODY_3_MASS};
 
 pub struct State<'a> {
     surface: wgpu::Surface<'a>,
@@ -19,6 +18,10 @@ pub struct State<'a> {
     render_pipeline: wgpu::RenderPipeline,
     sim_bind_group: wgpu::BindGroup,
     body_mass_buffer: wgpu::Buffer,
+    body_pos_buffer: wgpu::Buffer,
+    scale_buffer: wgpu::Buffer,
+    origin_buffer: wgpu::Buffer,
+    sim: Sim
 }
 
 impl<'a> State<'a> {
@@ -85,9 +88,6 @@ impl<'a> State<'a> {
                     [0.0f32, -2.0, 0.0, 0.0],
                     [-2.0f32, 2.0, 0.0, 0.0],
                     [2.0f32, 2.0, 0.0, 0.0],
-                    // Vector4::new(0.0, -0.5, 0.0, 0.0),
-                    // Vector4::new(-0.4, 0.5, 0.0, 0.0),
-                    // Vector4::new(0.4, 0.5, 0.0, 0.0),
                 ]),
                 usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
             }
@@ -251,7 +251,11 @@ impl<'a> State<'a> {
             size,
             render_pipeline,
             sim_bind_group,
-            body_mass_buffer
+            body_mass_buffer,
+            body_pos_buffer,
+            scale_buffer,
+            origin_buffer,
+            sim: Sim::default()
         }
     }
 
@@ -281,7 +285,23 @@ impl<'a> State<'a> {
         false
     }
 
-    pub fn update(&mut self) {}
+    pub fn update(&mut self) {
+        let Some(output) = self.sim.update() else { return; };
+
+        self.queue.write_buffer(&self.body_pos_buffer, 0, bytemuck::cast_slice(&[
+            [output.body_1_pos.x, output.body_1_pos.y, 0.0, 0.0],
+            [output.body_2_pos.x, output.body_2_pos.y, 0.0, 0.0],
+            [output.body_3_pos.x, output.body_3_pos.y, 0.0, 0.0],
+        ]));
+
+        self.queue.write_buffer(&self.origin_buffer, 0, bytemuck::bytes_of(&
+            [output.origin.x, output.origin.y, 0.0, 0.0]
+        ));
+
+        self.queue.write_buffer(&self.scale_buffer, 0, bytemuck::bytes_of(&
+            [output.scale, 0.0, 0.0, 0.0]
+        ));
+    }
 
     pub fn render(&mut self) -> Result<(), wgpu::SurfaceError> {
         let output = self.surface.get_current_texture()?;

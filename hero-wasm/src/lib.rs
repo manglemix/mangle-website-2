@@ -1,5 +1,5 @@
 use std::mem::transmute;
-use std::sync::atomic::{AtomicU32, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU32, Ordering};
 
 use log::error;
 use state::State;
@@ -11,10 +11,13 @@ use winit::platform::web::{EventLoopExtWebSys, WindowExtWebSys};
 use winit::window::WindowBuilder;
 
 mod state;
+mod sim;
 
 static BODY_1_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
 static BODY_2_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
 static BODY_3_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
+static PAUSED: AtomicBool = AtomicBool::new(true);
+static RESET_REQUESTED: AtomicBool = AtomicBool::new(true);
 
 #[wasm_bindgen]
 pub fn set_body_1_mass(new_mass: f32) {
@@ -29,6 +32,21 @@ pub fn set_body_2_mass(new_mass: f32) {
 #[wasm_bindgen]
 pub fn set_body_3_mass(new_mass: f32) {
     BODY_3_MASS.store(new_mass.to_bits(), Ordering::Relaxed);
+}
+
+#[wasm_bindgen]
+pub fn pause() {
+    PAUSED.store(true, Ordering::Relaxed);
+}
+
+#[wasm_bindgen]
+pub fn play() {
+    PAUSED.store(false, Ordering::Relaxed);
+}
+
+#[wasm_bindgen]
+pub fn reset() {
+    RESET_REQUESTED.store(true, Ordering::Relaxed);
 }
 
 #[wasm_bindgen(start)]

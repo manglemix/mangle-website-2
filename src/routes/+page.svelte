@@ -1,23 +1,16 @@
 <script>
-	import { browser } from '$app/environment';
-
     // https://www.mbaraa.com/blog/using-wasm-with-sveltekit
-	import init, { set_body_1_mass, set_body_2_mass, set_body_3_mass } from 'hero-wasm';
+	import init, { set_body_1_mass, set_body_2_mass, set_body_3_mass, pause, play, reset } from 'hero-wasm';
 	import { onMount } from 'svelte';
 
     var body_1_mass = 1.0;
     var body_2_mass = 1.0;
     var body_3_mass = 1.0;
+    var paused = true;
 
 	onMount(async () => {
 		await init(); // init initializes memory addresses needed by WASM and that will be used by JS/TS
 	});
-
-    // if (browser) {
-    //     $: set_body_1_mass(body_1_mass);
-    //     $: set_body_2_mass(body_2_mass);
-    //     $: set_body_3_mass(body_3_mass);
-    // }
 </script>
 
 <svelte:head>
@@ -33,6 +26,29 @@
         <h2>3 Body Problem</h2>
         <div id="hero-wasm-container">
         </div>
+        <section id="controls">
+            {#if paused}
+                <button on:click={() => {
+                    paused = false;
+                    play();
+                }}>
+                    Play
+                </button>
+            {:else}
+                <button on:click={() => {
+                    paused = true;
+                    pause();
+                }}>
+                    Pause
+                </button>
+            {/if}
+            <button on:click={() => {
+                paused = true;
+                reset();
+                }}>
+                Reset
+            </button>
+        </section>
         <h3>Masses</h3>
         <section id="wasm-sliders">
             <input type="range" min="1" max="10" bind:value={body_1_mass} on:input={() => set_body_1_mass(body_1_mass)} />
@@ -91,5 +107,11 @@
     #wasm-sliders input {
         min-width: 0;
         flex-grow: 1;
+    }
+
+    #controls {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
     }
 </style>
