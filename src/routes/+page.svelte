@@ -51,9 +51,9 @@
         </section>
         <h3>Masses</h3>
         <section id="wasm-sliders">
-            <input type="range" min="1" max="10" bind:value={body_1_mass} on:input={() => set_body_1_mass(body_1_mass)} />
-            <input type="range" min="1" max="10" bind:value={body_2_mass} on:input={() => set_body_2_mass(body_2_mass)} />
-            <input type="range" min="1" max="10" bind:value={body_3_mass} on:input={() => set_body_3_mass(body_3_mass)} />
+            <input type="range" min="1" max="15" bind:value={body_1_mass} on:input={() => set_body_1_mass(body_1_mass)} />
+            <input type="range" min="1" max="15" bind:value={body_2_mass} on:input={() => set_body_2_mass(body_2_mass)} />
+            <input type="range" min="1" max="15" bind:value={body_3_mass} on:input={() => set_body_3_mass(body_3_mass)} />
         </section>
     </section>
 </header>
@@ -113,5 +113,9 @@
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
+    }
+    
+    #controls button {
+        flex-grow: 1;
     }
 </style>

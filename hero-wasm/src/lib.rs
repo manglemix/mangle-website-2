@@ -10,8 +10,8 @@ use winit::event_loop::EventLoop;
 use winit::platform::web::{EventLoopExtWebSys, WindowExtWebSys};
 use winit::window::WindowBuilder;
 
-mod state;
 mod sim;
+mod state;
 
 static BODY_1_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
 static BODY_2_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
@@ -61,7 +61,8 @@ pub async fn run() {
     let html_window = web_sys::window().expect("Couldn't get window");
     let scale = html_window.device_pixel_ratio();
 
-    let container = html_window.document()
+    let container = html_window
+        .document()
         .and_then(|doc| {
             let dst = doc.get_element_by_id("hero-wasm-container")?;
             let canvas = web_sys::Element::from(window.canvas()?);
@@ -72,38 +73,40 @@ pub async fn run() {
 
     let mut state = State::new(&*window).await;
 
-    event_loop
-        .spawn(move |event, _control_flow| {
-            match event {
-                Event::WindowEvent {
-                    ref event,
-                    window_id,
-                } if window_id == state.window().id() => {
-                    if !state.input(event) {
-                        match event {
-                            WindowEvent::RedrawRequested => {
-                                let rect = container.get_bounding_client_rect();
-                                state.match_parent(PhysicalSize::new((rect.width() * scale).round() as u32, (rect.height() * scale).round() as u32));
-                                state.update();
-                                match state.render() {
-                                    Ok(_) => {}
-                                    // Reconfigure the surface if lost
-                                    Err(wgpu::SurfaceError::Lost) => state.resize(state.get_size()),
-                                    // All other errors (Outdated, Timeout) should be resolved by the next frame
-                                    Err(e) => error!("{:?}", e),
-                                }
+    event_loop.spawn(move |event, _control_flow| {
+        match event {
+            Event::WindowEvent {
+                ref event,
+                window_id,
+            } if window_id == state.window().id() => {
+                if !state.input(event) {
+                    match event {
+                        WindowEvent::RedrawRequested => {
+                            let rect = container.get_bounding_client_rect();
+                            state.match_parent(PhysicalSize::new(
+                                (rect.width() * scale).round() as u32,
+                                (rect.height() * scale).round() as u32,
+                            ));
+                            state.update();
+                            match state.render() {
+                                Ok(_) => {}
+                                // Reconfigure the surface if lost
+                                Err(wgpu::SurfaceError::Lost) => state.resize(state.get_size()),
+                                // All other errors (Outdated, Timeout) should be resolved by the next frame
+                                Err(e) => error!("{:?}", e),
                             }
-                            _ => {}
                         }
+                        _ => {}
                     }
                 }
-
-                Event::AboutToWait => {
-                    // RedrawRequested will only trigger once unless we manually
-                    // request it.
-                    state.window().request_redraw();
-                }
-                _ => {}
             }
-        });
+
+            Event::AboutToWait => {
+                // RedrawRequested will only trigger once unless we manually
+                // request it.
+                state.window().request_redraw();
+            }
+            _ => {}
+        }
+    });
 }

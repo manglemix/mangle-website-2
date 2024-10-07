@@ -47,16 +47,23 @@ fn remap(value: f32) -> f32 {
 }
 
 const BRIGHTNESS: f32 = 0.05;
+const RADIUS: f32 = 1.0;
 
 @fragment
 fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
+    let uv_dist = length(in.tex_coords * scale.x + origin.xy) / scale.x;
+
+    if uv_dist > 0.035 && uv_dist < 0.055 {
+        return vec4<f32>(0.9, 0.9, 0.9, 1.0);
+    }
+
     let current_pos = in.tex_coords * scale.x + origin.xy;
 
     var body_1_vec = body_pos[0].xy - current_pos;
     let body_1_dist = length(body_1_vec);
     body_1_vec /= body_1_dist;
 
-    if body_1_dist < 1.0 {
+    if body_1_dist < RADIUS {
         return vec4<f32>(1.0, 0.2, 0.2, 1.0);
     }
 
@@ -64,7 +71,7 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
     let body_2_dist = length(body_2_vec);
     body_2_vec /= body_2_dist;
 
-    if body_2_dist < 1.0 {
+    if body_2_dist < RADIUS {
         return vec4<f32>(0.2, 1.0, 0.2, 1.0);
     }
 
@@ -72,7 +79,7 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
     let body_3_dist = length(body_3_vec);
     body_3_vec /= body_3_dist;
 
-    if body_3_dist < 1.0 {
+    if body_3_dist < RADIUS {
         return vec4<f32>(0.2, 0.2, 1.0, 1.0);
     }
 
@@ -91,10 +98,8 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
         remap(blue) * blue / sum
     );
 
-    rgb = pow(rgb, vec3<f32>(0.5, 0.5, 0.5)) * BRIGHTNESS + rgb;
+    rgb += pow(rgb, vec3<f32>(0.5, 0.5, 0.5)) * BRIGHTNESS;
 
-    // rgb = (vec3<f32>(1.0, 1.0, 1.0) - rgb) * BRIGHTNESS + rgb;
-    
     return vec4<f32>(
         rgb.x, rgb.y, rgb.z,
         1.0

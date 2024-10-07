@@ -21,7 +21,7 @@ pub struct State<'a> {
     body_pos_buffer: wgpu::Buffer,
     scale_buffer: wgpu::Buffer,
     origin_buffer: wgpu::Buffer,
-    sim: Sim
+    sim: Sim,
 }
 
 impl<'a> State<'a> {
@@ -36,7 +36,9 @@ impl<'a> State<'a> {
             ..Default::default()
         });
 
-        let surface = instance.create_surface(window).expect("Failed to create surface");
+        let surface = instance
+            .create_surface(window)
+            .expect("Failed to create surface");
 
         let adapter = instance
             .request_adapter(&wgpu::RequestAdapterOptions {
@@ -81,93 +83,80 @@ impl<'a> State<'a> {
             desired_maximum_frame_latency: 2,
         };
 
-        let body_pos_buffer = device.create_buffer_init(
-            &wgpu::util::BufferInitDescriptor {
-                label: Some("Body Position Buffer"),
-                contents: bytemuck::cast_slice(&[
-                    [0.0f32, -2.0, 0.0, 0.0],
-                    [-2.0f32, 2.0, 0.0, 0.0],
-                    [2.0f32, 2.0, 0.0, 0.0],
-                ]),
-                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
-            }
-        );
-
-        let origin_buffer = device.create_buffer_init(
-            &wgpu::util::BufferInitDescriptor {
-                label: Some("Origin Buffer"),
-                contents: bytemuck::bytes_of(&
-                    [0.0f32; 4],
-                ),
-                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
-            }
-        );
-
-        let body_mass_buffer = device.create_buffer_init(
-            &wgpu::util::BufferInitDescriptor {
-                label: Some("Body Mass Buffer"),
-                contents: bytemuck::bytes_of(&
-                    [1.0f32, 1.0, 1.0, 0.0]
-                ),
-                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
-            }
-        );
-
-        let scale_buffer = device.create_buffer_init(
-            &wgpu::util::BufferInitDescriptor {
-                label: Some("Scale Buffer"),
-                contents: bytemuck::bytes_of(&
-                    [8.0f32, 0.0, 0.0, 0.0]
-                ),
-                usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
-            }
-        );
-
-        let sim_bind_group_layout = device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
-            entries: &[
-                wgpu::BindGroupLayoutEntry {
-                    binding: 0,
-                    visibility: wgpu::ShaderStages::FRAGMENT,
-                    ty: wgpu::BindingType::Buffer {
-                        ty: wgpu::BufferBindingType::Uniform,
-                        has_dynamic_offset: false,
-                        min_binding_size: None,
-                    },
-                    count: None,
-                },
-                wgpu::BindGroupLayoutEntry {
-                    binding: 1,
-                    visibility: wgpu::ShaderStages::FRAGMENT,
-                    ty: wgpu::BindingType::Buffer {
-                        ty: wgpu::BufferBindingType::Uniform,
-                        has_dynamic_offset: false,
-                        min_binding_size: None,
-                    },
-                    count: None,
-                },
-                wgpu::BindGroupLayoutEntry {
-                    binding: 2,
-                    visibility: wgpu::ShaderStages::FRAGMENT,
-                    ty: wgpu::BindingType::Buffer {
-                        ty: wgpu::BufferBindingType::Uniform,
-                        has_dynamic_offset: false,
-                        min_binding_size: None,
-                    },
-                    count: None,
-                },
-                wgpu::BindGroupLayoutEntry {
-                    binding: 3,
-                    visibility: wgpu::ShaderStages::FRAGMENT,
-                    ty: wgpu::BindingType::Buffer {
-                        ty: wgpu::BufferBindingType::Uniform,
-                        has_dynamic_offset: false,
-                        min_binding_size: None,
-                    },
-                    count: None,
-                }
-            ],
-            label: Some("sim_bind_group_layout"),
+        let body_pos_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Body Position Buffer"),
+            contents: bytemuck::cast_slice(&[
+                [0.0f32, -2.0, 0.0, 0.0],
+                [-2.0f32, 2.0, 0.0, 0.0],
+                [2.0f32, 2.0, 0.0, 0.0],
+            ]),
+            usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
         });
+
+        let origin_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Origin Buffer"),
+            contents: bytemuck::bytes_of(&[0.0f32; 4]),
+            usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+        });
+
+        let body_mass_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Body Mass Buffer"),
+            contents: bytemuck::bytes_of(&[1.0f32, 1.0, 1.0, 0.0]),
+            usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+        });
+
+        let scale_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
+            label: Some("Scale Buffer"),
+            contents: bytemuck::bytes_of(&[8.0f32, 0.0, 0.0, 0.0]),
+            usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
+        });
+
+        let sim_bind_group_layout =
+            device.create_bind_group_layout(&wgpu::BindGroupLayoutDescriptor {
+                entries: &[
+                    wgpu::BindGroupLayoutEntry {
+                        binding: 0,
+                        visibility: wgpu::ShaderStages::FRAGMENT,
+                        ty: wgpu::BindingType::Buffer {
+                            ty: wgpu::BufferBindingType::Uniform,
+                            has_dynamic_offset: false,
+                            min_binding_size: None,
+                        },
+                        count: None,
+                    },
+                    wgpu::BindGroupLayoutEntry {
+                        binding: 1,
+                        visibility: wgpu::ShaderStages::FRAGMENT,
+                        ty: wgpu::BindingType::Buffer {
+                            ty: wgpu::BufferBindingType::Uniform,
+                            has_dynamic_offset: false,
+                            min_binding_size: None,
+                        },
+                        count: None,
+                    },
+                    wgpu::BindGroupLayoutEntry {
+                        binding: 2,
+                        visibility: wgpu::ShaderStages::FRAGMENT,
+                        ty: wgpu::BindingType::Buffer {
+                            ty: wgpu::BufferBindingType::Uniform,
+                            has_dynamic_offset: false,
+                            min_binding_size: None,
+                        },
+                        count: None,
+                    },
+                    wgpu::BindGroupLayoutEntry {
+                        binding: 3,
+                        visibility: wgpu::ShaderStages::FRAGMENT,
+                        ty: wgpu::BindingType::Buffer {
+                            ty: wgpu::BufferBindingType::Uniform,
+                            has_dynamic_offset: false,
+                            min_binding_size: None,
+                        },
+                        count: None,
+                    },
+                ],
+                label: Some("sim_bind_group_layout"),
+            });
 
         let sim_bind_group = device.create_bind_group(&wgpu::BindGroupDescriptor {
             layout: &sim_bind_group_layout,
@@ -187,33 +176,33 @@ impl<'a> State<'a> {
                 wgpu::BindGroupEntry {
                     binding: 3,
                     resource: scale_buffer.as_entire_binding(),
-                }
+                },
             ],
             label: Some("sim_bind_group"),
         });
 
         let shader = device.create_shader_module(wgpu::include_wgsl!("shader.wgsl"));
         let render_pipeline_layout =
-        device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
-            label: Some("Render Pipeline Layout"),
-            bind_group_layouts: &[
-                &sim_bind_group_layout,
-            ],
-            push_constant_ranges: &[],
-        });
+            device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+                label: Some("Render Pipeline Layout"),
+                bind_group_layouts: &[&sim_bind_group_layout],
+                push_constant_ranges: &[],
+            });
         let render_pipeline = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
             label: Some("Render Pipeline"),
             layout: Some(&render_pipeline_layout),
             vertex: wgpu::VertexState {
                 module: &shader,
                 entry_point: "vs_main", // 1.
-                buffers: &[], // 2.
+                buffers: &[],           // 2.
                 compilation_options: wgpu::PipelineCompilationOptions::default(),
             },
-            fragment: Some(wgpu::FragmentState { // 3.
+            fragment: Some(wgpu::FragmentState {
+                // 3.
                 module: &shader,
                 entry_point: "fs_main",
-                targets: &[Some(wgpu::ColorTargetState { // 4.
+                targets: &[Some(wgpu::ColorTargetState {
+                    // 4.
                     format: config.format,
                     blend: Some(wgpu::BlendState::REPLACE),
                     write_mask: wgpu::ColorWrites::ALL,
@@ -234,12 +223,12 @@ impl<'a> State<'a> {
             },
             depth_stencil: None, // 1.
             multisample: wgpu::MultisampleState {
-                count: 1, // 2.
-                mask: !0, // 3.
+                count: 1,                         // 2.
+                mask: !0,                         // 3.
                 alpha_to_coverage_enabled: false, // 4.
             },
             multiview: None, // 5.
-            cache: None, // 6.
+            cache: None,     // 6.
         });
 
         Self {
@@ -255,7 +244,7 @@ impl<'a> State<'a> {
             body_pos_buffer,
             scale_buffer,
             origin_buffer,
-            sim: Sim::default()
+            sim: Sim::default(),
         }
     }
 
@@ -286,21 +275,31 @@ impl<'a> State<'a> {
     }
 
     pub fn update(&mut self) {
-        let Some(output) = self.sim.update() else { return; };
+        let Some(output) = self.sim.update() else {
+            return;
+        };
 
-        self.queue.write_buffer(&self.body_pos_buffer, 0, bytemuck::cast_slice(&[
-            [output.body_1_pos.x, output.body_1_pos.y, 0.0, 0.0],
-            [output.body_2_pos.x, output.body_2_pos.y, 0.0, 0.0],
-            [output.body_3_pos.x, output.body_3_pos.y, 0.0, 0.0],
-        ]));
+        self.queue.write_buffer(
+            &self.body_pos_buffer,
+            0,
+            bytemuck::cast_slice(&[
+                [output.body_1_pos.x, output.body_1_pos.y, 0.0, 0.0],
+                [output.body_2_pos.x, output.body_2_pos.y, 0.0, 0.0],
+                [output.body_3_pos.x, output.body_3_pos.y, 0.0, 0.0],
+            ]),
+        );
 
-        self.queue.write_buffer(&self.origin_buffer, 0, bytemuck::bytes_of(&
-            [output.origin.x, output.origin.y, 0.0, 0.0]
-        ));
+        self.queue.write_buffer(
+            &self.origin_buffer,
+            0,
+            bytemuck::bytes_of(&[output.origin.x, output.origin.y, 0.0, 0.0]),
+        );
 
-        self.queue.write_buffer(&self.scale_buffer, 0, bytemuck::bytes_of(&
-            [output.scale, 0.0, 0.0, 0.0]
-        ));
+        self.queue.write_buffer(
+            &self.scale_buffer,
+            0,
+            bytemuck::bytes_of(&[output.scale, 0.0, 0.0, 0.0]),
+        );
     }
 
     pub fn render(&mut self) -> Result<(), wgpu::SurfaceError> {
@@ -335,12 +334,16 @@ impl<'a> State<'a> {
             render_pass.draw(0..6, 0..1);
         }
 
-        self.queue.write_buffer(&self.body_mass_buffer, 0, bytemuck::cast_slice(&[
-            BODY_1_MASS.load(Ordering::Relaxed),
-            BODY_2_MASS.load(Ordering::Relaxed),
-            BODY_3_MASS.load(Ordering::Relaxed),
-            0
-        ]));
+        self.queue.write_buffer(
+            &self.body_mass_buffer,
+            0,
+            bytemuck::cast_slice(&[
+                BODY_1_MASS.load(Ordering::Relaxed),
+                BODY_2_MASS.load(Ordering::Relaxed),
+                BODY_3_MASS.load(Ordering::Relaxed),
+                0,
+            ]),
+        );
         // submit will accept anything that implements IntoIter
         self.queue.submit(std::iter::once(encoder.finish()));
         output.present();
