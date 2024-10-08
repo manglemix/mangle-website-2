@@ -55,17 +55,17 @@ pub fn set_time_scale(new_scale: f32) {
     TIME_SCALE.store(new_scale.to_bits(), Ordering::Relaxed);
 }
 
-#[wasm_bindgen(start)]
+#[wasm_bindgen]
 pub async fn run() {
     // Redirect panics to the console (debugging)
     console_error_panic_hook::set_once();
-    console_log::init_with_level(log::Level::Warn).expect("Couldn't initialize logger");
+    let _ = console_log::init_with_level(log::Level::Warn);
+    reset();
 
     let event_loop = EventLoop::new().unwrap();
     let window = WindowBuilder::new().build(&event_loop).unwrap();
     let window = Box::leak(Box::new(window));
     let html_window = web_sys::window().expect("Couldn't get window");
-    let scale = html_window.device_pixel_ratio();
 
     let container = html_window
         .document()
@@ -79,7 +79,7 @@ pub async fn run() {
 
     let mut state = State::new(&*window).await;
 
-    event_loop.spawn(move |event, _control_flow| {
+    event_loop.spawn(move |event, control_flow| {
         match event {
             Event::WindowEvent {
                 ref event,
@@ -87,7 +87,11 @@ pub async fn run() {
             } if window_id == state.window().id() => {
                 if !state.input(event) {
                     match event {
+                        WindowEvent::CloseRequested => {
+                            control_flow.exit();
+                        }
                         WindowEvent::RedrawRequested => {
+                            let scale = html_window.device_pixel_ratio();
                             let rect = container.get_bounding_client_rect();
                             state.match_parent(PhysicalSize::new(
                                 (rect.width() * scale).round() as u32,
@@ -110,6 +114,10 @@ pub async fn run() {
             Event::AboutToWait => {
                 // RedrawRequested will only trigger once unless we manually
                 // request it.
+                let node: &web_sys::Node = container.as_ref();
+                if !node.is_connected() {
+                    control_flow.exit();
+                }
                 state.window().request_redraw();
             }
             _ => {}

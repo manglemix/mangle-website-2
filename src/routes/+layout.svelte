@@ -99,7 +99,7 @@
 	#footer-content {
 		display: flex;
 		align-self: center;
-		width: min(50rem, 100%);
+		width: min(60rem, 100%);
 	}
 
 	#footer-content {
