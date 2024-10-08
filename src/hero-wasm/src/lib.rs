@@ -13,9 +13,9 @@ use winit::window::WindowBuilder;
 mod sim;
 mod state;
 
-static BODY_1_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
-static BODY_2_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
-static BODY_3_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
+static BODY_1_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(10.0f32) });
+static BODY_2_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(10.0f32) });
+static BODY_3_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(10.0f32) });
 static TIME_SCALE: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
 static PAUSED: AtomicBool = AtomicBool::new(true);
 static RESET_REQUESTED: AtomicBool = AtomicBool::new(true);
