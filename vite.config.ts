@@ -4,5 +4,5 @@ import { enhancedImages } from '@sveltejs/enhanced-img';
 import wasmPack from 'vite-plugin-wasm-pack';
 
 export default defineConfig({
-	plugins: [wasmPack('./hero-wasm'), enhancedImages(), sveltekit()]
+	plugins: [enhancedImages(), sveltekit()]
 });

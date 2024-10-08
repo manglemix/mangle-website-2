@@ -1,7 +1,6 @@
 <header>
 	<nav>
 		<a href="/"><h2>Home</h2></a>
-		<a href="/timeline"><h2>Timeline</h2></a>
 		<a href="/resume"><h2>Resume</h2></a>
 	</nav>
 </header>

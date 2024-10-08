@@ -6,7 +6,7 @@ node_modules
 /.svelte-kit
 /build
 
-hero-wasm/target
+/src/hero-wasm/target
 
 # OS
 .DS_Store
