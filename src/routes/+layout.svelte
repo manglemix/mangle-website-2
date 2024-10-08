@@ -5,6 +5,36 @@
 	</nav>
 </header>
 
+<script lang="ts">
+	import { setContext } from 'svelte';
+	import { writable } from 'svelte/store';
+
+	// Create a store and update it when necessary...
+	const highlightEmailCtx = writable();
+	highlightEmailCtx.set(false);
+	
+	// ...and add it to the context for child components to access
+	setContext('highlightEmail', highlightEmailCtx);
+	var highlightEmail = false;
+
+	highlightEmailCtx.subscribe((value) => {
+		if (!value) {
+			return;
+		}
+		if (highlightEmail) {
+			if (value) {
+				highlightEmailCtx.set(false);
+			}
+			return;
+		}
+		highlightEmailCtx.set(false);
+		highlightEmail = true;
+		setTimeout(() => {
+			highlightEmail = false;
+		}, 2000);
+	});
+</script>
+
 <div id="content">
 	<main>
 		<slot></slot>
@@ -22,9 +52,15 @@
 			>
 		</div>
 		<div class="footer-col">
-			<a href="mailto:najmanhusaini20@gmail.com"
-				><enhanced:img src="$lib/assets/mail.png" alt="Email" class="logo" /> Email</a
-			>
+			{#if highlightEmail}
+				<a href="mailto:najmanhusaini20@gmail.com" id="highlighted-email"
+					><enhanced:img src="$lib/assets/mail.png" alt="Email" class="logo" /> Email</a
+				>
+			{:else}
+				<a href="mailto:najmanhusaini20@gmail.com"
+					><enhanced:img src="$lib/assets/mail.png" alt="Email" class="logo" /> Email</a
+				>
+			{/if}
 			<a href="https://www.linkedin.com/in/najman-husaini/"
 				><enhanced:img src="$lib/assets/linkedin.png" alt="LinkedIn" class="logo" /> LinkedIn</a
 			>
@@ -110,7 +146,7 @@
 	.footer-col {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.5rem;
 	}
 
 	footer {
@@ -128,6 +164,8 @@
 		align-items: center;
 		gap: 0.5rem;
 		font-size: 0.8rem;
+		padding: 0.3rem;
+		border-radius: 0.5rem;
 	}
 
 	:global(footer .footer-col a picture) {
@@ -139,5 +177,20 @@
 	.logo {
 		width: 1.5rem;
 		height: auto;
+	}
+
+	#highlighted-email {
+		animation-duration: 2s;
+		animation-name: fadeBg;
+	}
+
+	@keyframes fadeBg {
+		from {
+			background-color: rgb(195, 127, 0, 127);
+		}
+
+		to {
+			background-color: transparent;
+		}
 	}
 </style>

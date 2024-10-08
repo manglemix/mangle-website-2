@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import init, {
 		set_body_1_mass,
 		set_body_2_mass,
@@ -26,7 +26,8 @@
 <header>
 	<section id="greeting">
 		<h1>Hello World!</h1>
-		<span id="i-am">I am</span><span id="name-title">Najman Husaini</span>
+		<p><span id="i-am">I am</span><span id="name-title">Najman Husaini</span></p>
+        <slot></slot>
 	</section>
 	<section id="hero-wasm-panel">
 		<h2>3 Body Problem</h2>
@@ -164,8 +165,12 @@
 		font-weight: bold;
 		font-size: 1.2rem;
 		border-radius: 0.5rem;
+        border: none;
 	}
 
+	#pause-play button:active {
+		background-color: #1e1e1e;
+    }
 	#time-controls {
 		display: flex;
 		flex-direction: row;
