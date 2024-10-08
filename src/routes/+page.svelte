@@ -1,5 +1,6 @@
 <script>
     import Greeting from '$lib/greeting.svelte';
+    import FancyPanel from '$lib/fancyPanel.svelte';
 	import { getContext } from 'svelte';
 
 	const highlightEmail = getContext('highlightEmail');
@@ -26,13 +27,25 @@
     Factoring in my coursework and experience as a Teaching Assistant for the School of Computing, I have formidable talent
     in multiple domains of software development along with the confidence to communicate and collaborate effectively.
 </p>
-<section id="robotics">
-    <p>
+<FancyPanel style="margin-top: 5rem; display: flex; flex-direction: column;" id="robotics">
+    <div class="flex flex-row">
         <iframe id="robot-vid" src="https://www.youtube.com/embed/OvzOrHbLd_M?si=4wOgsB6juSaCcEqy&amp;start=743" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <enhanced:img src="$lib/assets/usr.png" alt="Utah Student Robotics" id="usr-logo" />
-        TODO
-    </p>
-</section>
+        <p>
+            <enhanced:img src="$lib/assets/usr.png" alt="Utah Student Robotics" id="usr-logo" />
+            The competition is simple. Move the most amount of material from the excavation zone into the dump zone, and don't hit any rocks on the way.
+            In 2024, we did just that. We moved the most amount of moon dirt (<a href="https://spaceresourcetech.com/products/lhs-1-lunar-highlands-simulant">LHS-1</a>)
+            out of all 50 teams from universities around the US and the military. My main contribution was implementing all of the software that allowed 2 pilots
+            to simultaneously commandeer the robot wirelessly and in real time using 6 camera feeds streamed using FFmpeg over RTP. We also received points for being
+            able to dig and dump autonomously using state machines. Due to our robust and noise-resistant communication protocol over UDP, we had the smallest bandwidth
+            usage whilst having enough camera coverage and fidelity to avoid using the arena provided cameras.
+        </p>
+    </div>
+    <div class="flex flex-row">
+        <p>
+            
+        </p>
+    </div>
+</FancyPanel>
 
 <style>
     #contacts {
@@ -59,16 +72,8 @@
     #summary {
         margin-top: 0.3rem;
     }
-    #robotics {
-        margin-top: 2rem;
-    }
-    /* .section-col {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    } */
     #robot-vid {
-        width: min(25rem, 100%);
+        min-width: min(25rem, 100%);
         height: auto;
         aspect-ratio: 16 / 9;
         float: left;
@@ -80,5 +85,6 @@
 		height: auto;
         float: left;
         margin-right: 0.5rem;
+        background-image: radial-gradient(rgb(65, 65, 65) 20%, transparent 73%);
     }
 </style>

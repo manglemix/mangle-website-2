@@ -6,6 +6,7 @@
 </header>
 
 <script lang="ts">
+  	import "../app.css";
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 

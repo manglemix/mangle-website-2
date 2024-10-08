@@ -66,6 +66,7 @@
 			0.5x
 			<input
 				id="time-scale"
+				class="flex-grow"
 				type="range"
 				min="0.5"
 				max="5.0"
@@ -175,9 +176,5 @@
 		display: flex;
 		flex-direction: row;
 		gap: 0.5rem;
-	}
-
-	#time-controls input {
-		flex-grow: 1;
 	}
 </style>
