@@ -61,44 +61,45 @@ fn fs_main(in: VertexOutput) -> @location(0) vec4<f32> {
 
     var body_1_vec = body_pos[0].xy - current_pos;
     let body_1_dist = length(body_1_vec);
-    body_1_vec /= body_1_dist;
 
     if body_1_dist < RADIUS {
         return vec4<f32>(1.0, 0.2, 0.2, 1.0);
     }
+    body_1_vec /= body_1_dist;
 
     var body_2_vec = body_pos[1].xy - current_pos;
     let body_2_dist = length(body_2_vec);
-    body_2_vec /= body_2_dist;
 
     if body_2_dist < RADIUS {
         return vec4<f32>(0.2, 1.0, 0.2, 1.0);
     }
+    body_2_vec /= body_2_dist;
 
     var body_3_vec = body_pos[2].xy - current_pos;
     let body_3_dist = length(body_3_vec);
-    body_3_vec /= body_3_dist;
 
     if body_3_dist < RADIUS {
         return vec4<f32>(0.2, 0.2, 1.0, 1.0);
     }
+    body_3_vec /= body_3_dist;
 
-    let accel_vec = body_mass.x / (body_1_dist * body_1_dist) * body_1_vec + 
-        body_mass.y / (body_2_dist * body_2_dist) * body_2_vec + 
-        body_mass.z / (body_3_dist * body_3_dist) * body_3_vec;
+    let body_1_accel_vec = body_mass.x / (body_1_dist * body_1_dist) * body_1_vec;
+    let body_2_accel_vec = body_mass.y / (body_2_dist * body_2_dist) * body_2_vec;
+    let body_3_accel_vec = body_mass.z / (body_3_dist * body_3_dist) * body_3_vec;
+
+    let accel_vec = normalize(body_1_accel_vec + body_2_accel_vec + body_3_accel_vec);
     
-    let red = max(0.0, dot(accel_vec, body_1_vec));
-    let green = max(0.0, dot(accel_vec, body_2_vec));
-    let blue = max(0.0, dot(accel_vec, body_3_vec));
+    let red = max(0.0, dot(accel_vec, body_1_accel_vec));
+    let green = max(0.0, dot(accel_vec, body_2_accel_vec));
+    let blue = max(0.0, dot(accel_vec, body_3_accel_vec));
 
-    let sum = red + green + blue;
     var rgb = vec3<f32>(
-        remap(red) * red / sum,
-        remap(green) * green / sum,
-        remap(blue) * blue / sum
+        remap(red),
+        remap(green),
+        remap(blue)
     );
 
-    rgb += pow(rgb, vec3<f32>(0.5, 0.5, 0.5)) * BRIGHTNESS;
+    // rgb += pow(rgb, vec3<f32>(0.5, 0.5, 0.5)) * BRIGHTNESS;
 
     return vec4<f32>(
         rgb.x, rgb.y, rgb.z,
