@@ -16,6 +16,7 @@ mod state;
 static BODY_1_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
 static BODY_2_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
 static BODY_3_MASS: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
+static TIME_SCALE: AtomicU32 = AtomicU32::new(unsafe { transmute(1.0f32) });
 static PAUSED: AtomicBool = AtomicBool::new(true);
 static RESET_REQUESTED: AtomicBool = AtomicBool::new(true);
 
@@ -47,6 +48,11 @@ pub fn play() {
 #[wasm_bindgen]
 pub fn reset() {
     RESET_REQUESTED.store(true, Ordering::Relaxed);
+}
+
+#[wasm_bindgen]
+pub fn set_time_scale(new_scale: f32) {
+    TIME_SCALE.store(new_scale.to_bits(), Ordering::Relaxed);
 }
 
 #[wasm_bindgen(start)]

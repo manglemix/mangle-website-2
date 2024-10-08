@@ -101,7 +101,7 @@ impl<'a> State<'a> {
 
         let body_mass_buffer = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
             label: Some("Body Mass Buffer"),
-            contents: bytemuck::bytes_of(&[1.0f32, 1.0, 1.0, 0.0]),
+            contents: bytemuck::bytes_of(&[10.0f32, 10.0, 10.0, 0.0]),
             usage: wgpu::BufferUsages::UNIFORM | wgpu::BufferUsages::COPY_DST,
         });
 
@@ -288,6 +288,8 @@ impl<'a> State<'a> {
                 [output.body_3_pos.x, output.body_3_pos.y, 0.0, 0.0],
             ]),
         );
+
+        // log::warn!("{}\n{}\n{}", output.body_1_pos, output.body_2_pos, output.body_3_pos);
 
         self.queue.write_buffer(
             &self.origin_buffer,
