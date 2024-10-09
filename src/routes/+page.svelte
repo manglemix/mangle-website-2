@@ -61,7 +61,7 @@
                 software is developed in Godot and is used to visualize the robot's state and direct the robot's autonomous actions.
             </p>
         </div>
-        <Roulette images={[rust, wgpu, tokio, godot]} alts={["rust", "wgpu", "tokio", "godot"]} style="margin: 0 1rem 0.5rem 2rem"/>
+        <Roulette images={[rust, wgpu, tokio, godot]} alts={["rust", "wgpu", "tokio", "godot"]} style="margin: 0 1.5rem 0.5rem 2rem"/>
     </div>
 </FancyPanel>
 
