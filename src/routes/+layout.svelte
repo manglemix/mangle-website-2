@@ -1,10 +1,3 @@
-<header>
-	<nav>
-		<a href="/"><h2>Home</h2></a>
-		<a href="/resume"><h2>Resume</h2></a>
-	</nav>
-</header>
-
 <script lang="ts">
   	import "../app.css";
 	import { setContext } from 'svelte';
@@ -30,11 +23,15 @@
 		}
 		highlightEmailCtx.set(false);
 		highlightEmail = true;
-		setTimeout(() => {
-			highlightEmail = false;
-		}, 2000);
 	});
 </script>
+
+<header>
+	<nav>
+		<a href="/"><h2>Home</h2></a>
+		<a href="/resume"><h2>Resume</h2></a>
+	</nav>
+</header>
 
 <div id="content">
 	<main>
@@ -54,7 +51,7 @@
 		</div>
 		<div class="footer-col">
 			{#if highlightEmail}
-				<a href="mailto:najmanhusaini20@gmail.com" id="highlighted-email"
+				<a href="mailto:najmanhusaini20@gmail.com" id="highlighted-email" on:animationend={() => highlightEmail = false}
 					><enhanced:img src="$lib/assets/mail.png" alt="Email" class="logo" /> Email</a
 				>
 			{:else}
@@ -105,7 +102,8 @@
 	}
 
 	header {
-		position: sticky;
+		position: fixed;
+		width: 100vw;
 		top: 0;
 		display: flex;
 		flex-direction: row;
@@ -117,14 +115,30 @@
 
 	a {
 		text-decoration: none;
+		font-weight: bold;
 	}
 
+    :global(button) {
+        background: rgb(51, 51, 51);
+        padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+        border-radius: 0.6rem;
+        border: none;
+        font-weight: bold;
+        font-size: 1.1rem;
+        box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.7);
+    }
+    :global(button:active) {
+        background: rgb(32, 32, 32);
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.7);
+    }
+
 	#content {
-		width: calc(100% - 2rem);
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: stretch;
 		padding: 1rem;
+		margin-top: 4rem;
 	}
 
 	main {
@@ -181,7 +195,7 @@
 	}
 
 	#highlighted-email {
-		animation-duration: 2s;
+		animation-duration: 3s;
 		animation-name: fadeBg;
 	}
 

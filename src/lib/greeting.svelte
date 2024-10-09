@@ -34,7 +34,7 @@
 		<div id="hero-wasm-container"></div>
 		<section id="pause-play">
 			{#if paused}
-				<button
+				<button id="play"
 					on:click={() => {
 						paused = false;
 						play();
@@ -43,7 +43,7 @@
 					Play
 				</button>
 			{:else}
-				<button
+				<button id="play"
 					on:click={() => {
 						paused = true;
 						pause();
@@ -52,7 +52,7 @@
 					Pause
 				</button>
 			{/if}
-			<button
+			<button id="reset"
 				on:click={() => {
 					paused = true;
 					reset();
@@ -106,6 +106,11 @@
 <style>
 	h1 {
 		font-size: 3rem;
+		font-weight: 600;
+	}
+	h2 {
+		font-size: 1.5rem;
+		font-weight: 600;
 	}
 
 	#i-am {
@@ -176,5 +181,10 @@
 		display: flex;
 		flex-direction: row;
 		gap: 0.5rem;
+	}
+
+	#play, #reset {
+		padding-top: 0.1rem;
+		padding-bottom: 0.1rem;
 	}
 </style>

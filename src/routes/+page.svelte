@@ -1,7 +1,13 @@
 <script>
     import Greeting from '$lib/greeting.svelte';
     import FancyPanel from '$lib/fancyPanel.svelte';
+    import Roulette from '$lib/roulette.svelte';
 	import { getContext } from 'svelte';
+
+    import rust from "$lib/assets/rust.png?enhanced";
+    import wgpu from "$lib/assets/wgpu.png?enhanced";
+    import tokio from "$lib/assets/tokio.png?enhanced";
+    import godot from "$lib/assets/godot.png?enhanced";
 
 	const highlightEmail = getContext('highlightEmail');
 </script>
@@ -11,7 +17,7 @@
 </svelte:head>
 
 <Greeting>
-    <button id="contacts" on:click={() => {
+    <button id="contact" on:click={() => {
         scroll(0, document.body.scrollHeight);
         highlightEmail.set(true);
     }}>
@@ -28,9 +34,11 @@
     in multiple domains of software development along with the confidence to communicate and collaborate effectively.
 </p>
 <FancyPanel style="margin-top: 5rem; display: flex; flex-direction: column;" id="robotics">
-    <div class="flex flex-row">
-        <iframe id="robot-vid" src="https://www.youtube.com/embed/OvzOrHbLd_M?si=4wOgsB6juSaCcEqy&amp;start=743" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        <p>
+    <div class="flex flex-row flex-wrap gap-4">
+        <div id="robot-vid">
+            <iframe src="https://www.youtube.com/embed/OvzOrHbLd_M?si=4wOgsB6juSaCcEqy&amp;start=743" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <p style="min-width: 50%; width: min-content; flex-grow: 3;">
             <enhanced:img src="$lib/assets/usr.png" alt="Utah Student Robotics" id="usr-logo" />
             The competition is simple. Move the most amount of material from the excavation zone into the dump zone, and don't hit any rocks on the way.
             In 2024, we did just that. We moved the most amount of moon dirt (<a href="https://spaceresourcetech.com/products/lhs-1-lunar-highlands-simulant">LHS-1</a>)
@@ -40,30 +48,35 @@
             usage whilst having enough camera coverage and fidelity to avoid using the arena provided cameras.
         </p>
     </div>
-    <div class="flex flex-row">
-        <p>
-            
-        </p>
+    <div class="flex flex-row mt-16 flex-wrap gap-4">
+        <div class="flex-grow flex flex-col" style="min-width: 50%; width: min-content">
+            <h2>
+                Technology
+            </h2>
+            <p>
+                The entire robot is programmed with Rust. <code>tokio</code> is used as the core model of execution, and <code>wgpu</code> with compute shaders
+                written in <code>WGSL</code> is used for any GPU programming. To promote rapid prototyping, a feature-complete robotics framework was developed
+                from the ground up in the footsteps of the Robot Operating System. This framework was called <code>unros</code> and is now superceeded by
+                <a href="https://github.com/utahrobotics/lunadev-2025/tree/main/urobotics"><code>urobotics</code></a> for the 2025 competition. The mission control
+                software is developed in Godot and is used to visualize the robot's state and direct the robot's autonomous actions.
+            </p>
+        </div>
+        <Roulette images={[rust, wgpu, tokio, godot]} alts={["rust", "wgpu", "tokio", "godot"]} style="margin: 0 1rem 0.5rem 2rem"/>
     </div>
 </FancyPanel>
 
 <style>
-    #contacts {
-        background: rgb(51, 51, 51);
-        padding: 0.5rem 0.7rem 0.5rem 0.7rem;
-        margin-left: 0.5rem;
-        border-radius: 0.6rem;
-        border: none;
+    h1 {
+        font-size: 1.5rem;
         font-weight: bold;
-        font-size: 1.1rem;
-        margin-top: 0.5rem;
     }
-    #contacts:active {
-        background: rgb(32, 32, 32);
+    h2 {
+        font-size: 1.3rem;
+        font-weight: bold;
     }
     #greeting-hr {
         margin-top: 4rem;
-        margin-bottom: 1rem;
+        margin-bottom: 2rem;
         box-shadow: 0 0 30px rgb(119, 119, 119);
     }
     :global(html) {
@@ -73,12 +86,18 @@
         margin-top: 0.3rem;
     }
     #robot-vid {
-        min-width: min(25rem, 100%);
+        min-width: none;
+        /* min-width: min(20rem, 100%); */
+        flex-grow: 1;
+    }
+    #contact {
+        margin-top: 0.5rem;
+        margin-left: 0.5rem;
+    }
+    #robot-vid iframe {
+        width: 100%;
         height: auto;
         aspect-ratio: 16 / 9;
-        float: left;
-        margin-right: 1rem;
-        margin-bottom: 1rem;
     }
     #usr-logo {
         width: 8rem;
@@ -86,5 +105,8 @@
         float: left;
         margin-right: 0.5rem;
         background-image: radial-gradient(rgb(65, 65, 65) 20%, transparent 73%);
+    }
+    a {
+        text-decoration: underline;
     }
 </style>
