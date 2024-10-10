@@ -8,14 +8,16 @@
     export let style = "";
 </script>
 
-<div id="roulette" {style}>
-    {#each {length: height} as _, y}
-        <div class="row">
-            {#each {length: width} as _, x}
-                <enhanced:img src={images[y * width + x]} alt={alts[y * width + x]} class="image" />
-            {/each}
-        </div>
-    {/each}
+<div {style} id="roulette-static">
+    <div id="roulette">
+        {#each {length: height} as _, y}
+            <div class="row">
+                {#each {length: width} as _, x}
+                    <enhanced:img src={images[y * width + x]} alt={alts[y * width + x]} class="image" />
+                {/each}
+            </div>
+        {/each}
+    </div>
 </div>
 
 <style>
@@ -57,5 +59,11 @@
         to {
             transform: rotate(-360deg);
         }
+    }
+    #roulette-static {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 </style>

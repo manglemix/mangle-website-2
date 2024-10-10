@@ -119,6 +119,7 @@
 		background-color: #181818;
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
 		height: 4rem;
+		z-index: 10;
 	}
 
 	a {
@@ -147,6 +148,7 @@
 		align-items: stretch;
 		padding: 1rem;
 		margin-top: 4rem;
+		overflow: clip;
 	}
 
 	main {

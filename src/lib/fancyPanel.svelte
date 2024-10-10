@@ -1,6 +1,7 @@
 <script lang="ts">
     var angle = 0.0;
     export let style = "";
+    export let panelClass = "";
     export let id = "";
     var panel: HTMLElement;
 
@@ -12,7 +13,7 @@
 	}
 </script>
 
-<section class="panel" id={id} style="--angle: {angle}deg;{style}" on:mousemove={handleMousemove} role="none" bind:this={panel}>
+<section class="panel {panelClass}" id={id} style="--angle: {angle}deg;{style}" on:mousemove={handleMousemove} role="none" bind:this={panel}>
     <slot></slot>
 </section>
 

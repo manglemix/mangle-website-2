@@ -1,105 +1,29 @@
 <script lang="ts">
-	import init, {
-		set_body_1_mass,
-		set_body_2_mass,
-		set_body_3_mass,
-		pause,
-		play,
-		reset,
-		set_time_scale,
-        run
-	} from 'hero-wasm';
-	import { onMount } from 'svelte';
+	var greetingIndex = 0;
 
-	var body_1_mass = 1.0;
-	var body_2_mass = 1.0;
-	var body_3_mass = 1.0;
-	var paused = true;
-	var time_scale = 1.0;
+	let intervalId = setInterval(() => {
+		greetingIndex++;
+	}, 90);
 
-	onMount(async () => {
-		await init(); // init initializes memory addresses needed by WASM and that will be used by JS/TS
-        run();
-	});
+	$: if (greetingIndex >= 32) {
+		clearInterval(intervalId);
+	}
 </script>
 
-<header>
+<header id="greeting-header">
 	<section id="greeting">
-		<h1>Hello World!</h1>
-		<p><span id="i-am">I am</span><span id="name-title">Najman Husaini</span></p>
+		{#if greetingIndex >= 32}
+			<h1>Hello World!</h1><p><span id="i-am">I am</span><span id="name-title">Najman Husaini</span></p>
+		{:else if greetingIndex >= 19}
+			<h1>Hello World!</h1><p><span id="i-am">I am</span><span id="name-title">{"Najman Husaini".substring(0, greetingIndex - 18)}<div id="caret" /></span></p>
+		{:else if greetingIndex >= 13}
+			<h1>Hello World!</h1><p><span id="i-am">{"I am".substring(0, greetingIndex - 13)}<div id="caret" /></span><span id="name-title" style="visibility: hidden">Najman Husaini</span></p>
+		{:else if greetingIndex > 0}
+			<h1>{"Hello World!".substring(0, greetingIndex)}<div id="caret" /></h1><p><span id="name-title" style="visibility: hidden">Najman Husaini</span></p>
+		{:else}
+			<h1 style="visibility: hidden">Hello World!</h1><p><span id="name-title" style="visibility: hidden">Najman Husaini</span></p>
+		{/if}
         <slot></slot>
-	</section>
-	<section id="hero-wasm-panel">
-		<h2>3 Body Problem</h2>
-		<div id="hero-wasm-container"></div>
-		<section id="pause-play">
-			{#if paused}
-				<button id="play"
-					on:click={() => {
-						paused = false;
-						play();
-					}}
-				>
-					Play
-				</button>
-			{:else}
-				<button id="play"
-					on:click={() => {
-						paused = true;
-						pause();
-					}}
-				>
-					Pause
-				</button>
-			{/if}
-			<button id="reset"
-				on:click={() => {
-					paused = true;
-					reset();
-				}}
-			>
-				Reset
-			</button>
-		</section>
-		<section id="time-controls">
-			<label for="time-scale">Time Scale</label>
-			0.5x
-			<input
-				id="time-scale"
-				class="flex-grow"
-				type="range"
-				min="0.5"
-				max="5.0"
-				step="0.1"
-				bind:value={time_scale}
-				on:input={() => set_time_scale(time_scale)}
-			/>
-			5x
-		</section>
-		<h3>Masses</h3>
-		<section id="wasm-sliders">
-			<input
-				type="range"
-				min="10"
-				max="100"
-				bind:value={body_1_mass}
-				on:input={() => set_body_1_mass(body_1_mass)}
-			/>
-			<input
-				type="range"
-				min="10"
-				max="100"
-				bind:value={body_2_mass}
-				on:input={() => set_body_2_mass(body_2_mass)}
-			/>
-			<input
-				type="range"
-				min="10"
-				max="100"
-				bind:value={body_3_mass}
-				on:input={() => set_body_3_mass(body_3_mass)}
-			/>
-		</section>
 	</section>
 </header>
 
@@ -107,10 +31,14 @@
 	h1 {
 		font-size: 3rem;
 		font-weight: 600;
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
 	}
-	h2 {
-		font-size: 1.5rem;
-		font-weight: 600;
+	p span {
+		display: inline-flex;
+		flex-direction: row;
+		align-items: stretch;
 	}
 
 	#i-am {
@@ -122,6 +50,7 @@
 		font-size: 2rem;
 		margin-left: 0.5rem;
 		font-weight: 600;
+		align-self: end;
 	}
 
 	header {
@@ -132,59 +61,19 @@
 		justify-content: space-between;
 	}
 
-	#hero-wasm-container {
-		display: flex;
-		overflow: clip;
-		aspect-ratio: 1 / 1;
-		border-radius: 2rem;
+	#greeting-header {
+		height: calc(100vw / 3 * 2);
+		/* position: absolute;
+		top: 4rem;
+		left: 0;
+		width: 100vw;
+		aspect-ratio: 16 / 9; */
 	}
 
-	#hero-wasm-panel {
-		flex-grow: 1;
-		display: flex;
-		max-width: 20rem;
-		flex-direction: column;
-		gap: 0.5rem;
-		align-items: stretch;
-	}
-
-	#wasm-sliders {
-		display: flex;
-		flex-direction: row;
-		gap: 0.5rem;
-	}
-
-	#wasm-sliders input {
-		min-width: 0;
-		flex-grow: 1;
-	}
-
-	#pause-play {
-		display: flex;
-		flex-direction: row;
-		gap: 0.5rem;
-	}
-
-	#pause-play button {
-		width: 50%;
-		background-color: #303030;
-		font-weight: bold;
-		font-size: 1.2rem;
-		border-radius: 0.5rem;
-        border: none;
-	}
-
-	#pause-play button:active {
-		background-color: #1e1e1e;
-    }
-	#time-controls {
-		display: flex;
-		flex-direction: row;
-		gap: 0.5rem;
-	}
-
-	#play, #reset {
-		padding-top: 0.1rem;
-		padding-bottom: 0.1rem;
+	#caret {
+		width: 0.4rem;
+		margin: 0.5rem;
+		background-color: white;
+		display: inline-block;
 	}
 </style>
