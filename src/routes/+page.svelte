@@ -167,7 +167,7 @@
 				</p>
 			</div>
 		{:else if webProjectIndex == 1}
-			<div style="min-width: none; max-width: 40%; flex-grow: 1;">
+			<div style="min-width: 15rem; max-width: 40%; flex-grow: 1; margin: auto;">
 				<enhanced:img src="$lib/assets/detrash.png" alt="DeTrash" />
 			</div>
 			<div class="flex flex-col w-min" style="min-width: 40%; flex-grow: 4;">
@@ -183,7 +183,7 @@
 				</p>
 			</div>
 		{:else}
-			<div style="min-width: none; max-width: 40%; flex-grow: 1;">
+			<div style="min-width: 15rem; max-width: 40%; flex-grow: 1; margin: auto;">
 				<enhanced:img src="$lib/assets/chat-a-way.png" alt="ChatAWay" />
 			</div>
 			<div class="flex flex-col w-min" style="min-width: 40%; flex-grow: 4;">
