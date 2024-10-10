@@ -5,7 +5,7 @@
     import iceland from "$lib/assets/iceland.jpg?enhanced";
     import snowyRoad from "$lib/assets/snowy-road.jpg?enhanced";
 
-    const images = [halfDome, alcatraz, iceland, snowyRoad];
+    const images = [halfDome, iceland, snowyRoad, alcatraz];
     var lastImage = 0;
     var currentImage = 0;
 

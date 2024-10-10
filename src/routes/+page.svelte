@@ -10,6 +10,7 @@
     import tokio from "$lib/assets/tokio.png?enhanced";
     import godot from "$lib/assets/godot.png?enhanced";
 	import HeroImage from '$lib/heroImage.svelte';
+	import UsrInsta from '$lib/usrInsta.svelte';
 
 	const highlightEmail = getContext('highlightEmail');
 </script>
@@ -38,7 +39,7 @@
     Factoring in my coursework and experience as a Teaching Assistant for the School of Computing, I have formidable talent
     in multiple domains of software development along with the confidence to communicate and collaborate effectively.
 </p>
-<FancyPanel panelClass="mt-8" style="display: flex; flex-direction: column;" id="robotics">
+<FancyPanel panelClass="mt-8 flex flex-col" id="robotics">
     <h2 class="mb-3"><enhanced:img src="$lib/assets/usr.png" alt="Utah Student Robotics" id="usr-logo" />Utah Student Robotics</h2>
     <div class="flex flex-row flex-wrap gap-4">
         <div id="robot-vid">
@@ -53,7 +54,7 @@
             usage whilst having enough camera coverage and fidelity to avoid using the arena provided cameras.
         </p>
     </div>
-    <div class="flex flex-row mt-8 flex-wrap gap-12 pr-6 pb-4">
+    <div class="flex flex-row mt-8 flex-wrap gap-10 pb-4">
         <div class="flex-grow flex flex-col" style="min-width: 50%; width: min-content">
             <h2>
                 Technology
@@ -66,12 +67,35 @@
                 software is developed in Godot and is used to visualize the robot's state and direct the robot's autonomous actions.
             </p>
         </div>
-        <Roulette images={[rust, wgpu, tokio, godot]} alts={["rust", "wgpu", "tokio", "godot"]} style=""/>
+        <Roulette images={[rust, wgpu, tokio, godot]} alts={["rust", "wgpu", "tokio", "godot"]} style="margin-right: 1rem; margin-left: 0.6rem"/>
     </div>
 </FancyPanel>
 
-<FancyPanel style="margin-top: 5rem; display: flex; flex-direction: column;" id="games">
-    <!-- <iframe width="552" height="167" frameborder="0" src="https://itch.io/embed/2860189"><a href="https://manglemix.itch.io/portalcrawler">PortalCrawler by manglemix</a></iframe> -->
+<UsrInsta />
+
+<FancyPanel panelClass="mt-16 flex flex-col" id="games">
+    <h2 class="mb-3">Game Development</h2>
+    <p>
+        There are about 3.22 billion self-reported gamers around the world, and the market size is about 220 billion USD and only going up. Despite how
+        lucrative this might seem, I studied game development at the University of Utah because I wanted to make games that I would enjoy playing. The first
+        proper game engine I learned was Godot and it is by far the engine I have the most experience in. Here at the U, I have taken courses in Unreal Engine 5
+        and GameMaker, and am now in Senior Capstone using Unity. Shown below is a game I made in my Traditional Game Development class.
+    </p>
+    <div id="itch-embed">
+        <iframe frameborder="0" src="https://itch.io/embed/2860189" title="Itch Embed"><a href="https://manglemix.itch.io/portalcrawler">PortalCrawler by manglemix</a></iframe>
+    </div>
+    <div class="flex flex-row flex-wrap gap-4">
+        <div id="bola-snippet">
+            <enhanced:img src="$lib/assets/bola.png" alt="Bola Screenshot" />
+        </div>
+        <p style="min-width: 50%; width: min-content; flex-grow: 3;">
+            <b><a href="https://bola.manglemix.com/">Bola</a></b> was the first game I made in college. It was a 2D physics platformer made in Godot that underwent several
+            iterations, many of which I wrote during my classes. My friends enjoyed it and influenced its development, so of course the next natural step was to add
+            leaderboards and multiplayer. The leaderboard database API was implemented in Rust with <code>Rocket</code> but have since been taken down. Multiplayer
+            was never finished. I subsequently practiced developing multiplayer with an FPS shooter, also in Godot, and was able to have 2 players and a spectator
+            fight against one AI, but that was the extent of it.
+        </p>
+    </div>
 </FancyPanel>
 <ThreeBody></ThreeBody>
 
@@ -92,7 +116,6 @@
     }
     #robot-vid {
         min-width: none;
-        /* min-width: min(20rem, 100%); */
         flex-grow: 1;
     }
     #contact {
@@ -117,5 +140,22 @@
     #accreditation {
         font-style: italic; align-self: stretch; text-align: end; position: relative; top: -2rem; color: rgb(211, 211, 211);
         font-weight: lighter;
+    }
+
+    #itch-embed {
+        width: 100%;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    #itch-embed iframe {
+        width: 100%;
+        height: auto;
+    }
+
+    #bola-snippet {
+        min-width: none;
+        max-width: 35%;
+        flex-grow: 1;
     }
 </style>
