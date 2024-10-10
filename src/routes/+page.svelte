@@ -29,6 +29,7 @@
     </button>
 </Greeting>
 <!-- <hr id="greeting-hr"> -->
+<p id="accreditation">Photos taken by me with a Sony A7iii</p>
 <h1>Summary</h1>
 <p id="summary">
     &emsp;&emsp;&emsp;I am a Senior Year Software Development student at the University of Utah. My degree has an emphasis on game development,
@@ -112,5 +113,9 @@
     }
     a {
         text-decoration: underline;
+    }
+    #accreditation {
+        font-style: italic; align-self: stretch; text-align: end; position: relative; top: -2rem; color: rgb(211, 211, 211);
+        font-weight: lighter;
     }
 </style>
