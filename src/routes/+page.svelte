@@ -47,8 +47,8 @@
 	have formidable talent in multiple domains of software development along with the confidence to
 	communicate and collaborate effectively.
 </p>
-<FancyPanel panelClass="mt-8 flex flex-col" id="robotics">
-	<h2 class="mb-3">
+<FancyPanel panelClass="mt-16 flex flex-col" id="robotics">
+	<h2 class="mb-3 text-center flex flex-row justify-center self-stretch">
 		<enhanced:img src="$lib/assets/usr.png" alt="Utah Student Robotics" id="usr-logo" />Utah Student
 		Robotics
 	</h2>
@@ -103,7 +103,7 @@
 <UsrInsta />
 
 <FancyPanel panelClass="mt-16 flex flex-col" id="games">
-	<h2 class="mb-3">Game Development</h2>
+	<h2 class="mb-3 text-center">Game Development</h2>
 	<p>
 		There are about 3.22 billion self-reported gamers around the world, and the market size is about
 		220 billion USD and only going up. Despite how lucrative this might seem, I studied game
@@ -134,11 +134,12 @@
 		</p>
 	</div>
 </FancyPanel>
+
 <FancyPanel panelClass="flex flex-col gap-4 mt-16 items-stretch" id="games">
 	<div class="flex flex-row justify-between">
 		<button
 			style="font-size: 2rem"
-			on:click={() => (webProjectIndex = (maxWebProjects - webProjectIndex + 1) % maxWebProjects)}
+			on:click={() => (webProjectIndex = (maxWebProjects + webProjectIndex - 1) % maxWebProjects)}
 		>
 			👈
 		</button>
@@ -158,11 +159,11 @@
 				<p>
 					A simulation of three gravitational bodies written in Rust and compiled to WebAssembly.
 					The simulation is done on the GPU using WebGPU through <code>wgpu</code> and
-					<code>wgsl</code>. <code>Rapier2D</code> was used to implement the physics collisions. The
-					color of each pixel represents which body has the most gravitational influence. For example,
-					the region near the blue circle is shaded blue as most of the gravity is coming from the blue
-					circle. However, at the exact center of the canvas at the beginning, the color is black as
-					the gravity from all 3 bodies cancel each other out.
+					<code>wgsl</code>. <code>Rapier2D</code> was used to implement physics collisions. The color
+					of each pixel represents which body has the most gravitational influence. For example, the
+					region near the blue circle is shaded blue as most of the gravity is coming from the blue circle.
+					However, at the exact center of the canvas at the beginning, the color is black as the gravity
+					from all 3 bodies cancel each other out.
 				</p>
 			</div>
 		{:else if webProjectIndex == 1}
@@ -172,14 +173,13 @@
 			<div class="flex flex-col w-min" style="min-width: 40%; flex-grow: 4;">
 				<h2>DeTrash</h2>
 				<p>
-					<b>Three Body</b> is a simulation of three gravitational bodies written in Rust and
-					compiled to WebAssembly. The simulation is done on the GPU using WebGPU through
-					<code>wgpu</code>
-					and <code>wgsl</code>. <code>Rapier2D</code> was used to implement the physics collisions.
-					The color of each pixel represents which body has the most gravitational influence. For example,
-					the region near the blue circle is shaded blue as most of the gravity is coming from the blue
-					circle. However, at the exact center of the canvas at the beginning, the color is black as
-					the gravity from all 3 bodies cancel each other out.
+					My team's entry into the Hack OHI/O 11 hackathon that received 2nd place. Users can submit
+					images of trash which are verified by YOLOv5 and then geotagged. The geotagged trash is
+					then displayed on a heat-map that clean-up crews can use to prioritize areas to clean. The
+					project was developed in SvelteKit with a backend developed in Flask, with Google Maps
+					integration. While the backend is not active, you can still check out the website <a
+						href="https://trash-tests.vercel.app/">here</a
+					>.
 				</p>
 			</div>
 		{:else}
@@ -189,19 +189,29 @@
 			<div class="flex flex-col w-min" style="min-width: 40%; flex-grow: 4;">
 				<h2>Chat-A-Way</h2>
 				<p>
-					<b>Three Body</b> is a simulation of three gravitational bodies written in Rust and
-					compiled to WebAssembly. The simulation is done on the GPU using WebGPU through
-					<code>wgpu</code>
-					and <code>wgsl</code>. <code>Rapier2D</code> was used to implement the physics collisions.
-					The color of each pixel represents which body has the most gravitational influence. For example,
-					the region near the blue circle is shaded blue as most of the gravity is coming from the blue
-					circle. However, at the exact center of the canvas at the beginning, the color is black as
-					the gravity from all 3 bodies cancel each other out.
+					Another team entry, but this time for MHacks 2023. Chat-A-Way is a chat application with
+					GPT-4 that can create routes using Google Maps based on what the user wants. If the user
+					describes an interest in watching a movie then eating dessert at a specific restaurant,
+					Chat-A-Way will generate a route that takes the user to the movie theater first and then
+					to the restaurant. The project was also developed in SvelteKit with a backend developed
+					with LangChain.
 				</p>
 			</div>
 		{/if}
 	</div>
 </FancyPanel>
+
+<section id="outro">
+	<p>
+		Thanks for taking the time to check out my website. This may be my largest frontend project so
+		far.
+	</p>
+	<p>If you are a <b>recruiter</b>, consider checking out my <a href="/resume">resume</a>.</p>
+	<p>
+		If you are interested in viewing the <b>source code</b>, check it out
+		<a href="https://github.com/manglemix/mangle-website-2">here</a>.
+	</p>
+</section>
 
 <style>
 	h1 {
@@ -263,8 +273,25 @@
 	}
 
 	#bola-snippet {
-		min-width: none;
-		max-width: 35%;
+		min-width: 10rem;
+		max-width: 20rem;
 		flex-grow: 1;
+	}
+
+	#outro {
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		gap: 0.7rem;
+		margin-top: 6rem;
+		margin-bottom: 6rem;
+	}
+
+	#outro p {
+		text-align: end;
+	}
+
+	p {
+		text-align: justify;
 	}
 </style>

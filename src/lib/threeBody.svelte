@@ -110,7 +110,8 @@
 		background-image: url('$lib/assets/loading.png');
 		background-size: cover;
 		align-self: center;
-		max-width: 20rem;
+		max-width: 17rem;
+		height: auto;
 	}
 
 	#hero-wasm-panel {
@@ -120,6 +121,8 @@
 		gap: 0.5rem;
 		align-items: stretch;
 		align-self: center;
+		max-width: 17rem;
+		margin: auto;
 	}
 
 	#wasm-sliders {
