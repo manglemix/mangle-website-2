@@ -13,6 +13,9 @@
 	import UsrInsta from '$lib/usrInsta.svelte';
 
 	const highlightEmail = getContext('highlightEmail');
+
+    var webProjectIndex = 0;
+    const maxWebProjects = 3;
 </script>
 
 <svelte:head>
@@ -29,7 +32,7 @@
         Contact
     </button>
 </Greeting>
-<!-- <hr id="greeting-hr"> -->
+
 <p id="accreditation">Photos taken by me with a Sony A7iii</p>
 <h1>Summary</h1>
 <p id="summary">
@@ -54,7 +57,7 @@
             usage whilst having enough camera coverage and fidelity to avoid using the arena provided cameras.
         </p>
     </div>
-    <div class="flex flex-row mt-8 flex-wrap gap-10 pb-4">
+    <div class="flex flex-row mt-8 flex-wrap gap-8 pb-4">
         <div class="flex-grow flex flex-col" style="min-width: 50%; width: min-content">
             <h2>
                 Technology
@@ -67,7 +70,7 @@
                 software is developed in Godot and is used to visualize the robot's state and direct the robot's autonomous actions.
             </p>
         </div>
-        <Roulette images={[rust, wgpu, tokio, godot]} alts={["rust", "wgpu", "tokio", "godot"]} style="margin-right: 1rem; margin-left: 0.6rem"/>
+        <Roulette images={[rust, wgpu, tokio, godot]} alts={["rust", "wgpu", "tokio", "godot"]} style="margin-right: 1.4rem; margin-left: 1.2rem"/>
     </div>
 </FancyPanel>
 
@@ -97,7 +100,29 @@
         </p>
     </div>
 </FancyPanel>
-<ThreeBody></ThreeBody>
+<FancyPanel panelClass="flex flex-col gap-4 mt-16 items-stretch" id="games">
+    <div class="flex flex-row justify-between">
+        <button style="font-size: 2rem" on:click={() => webProjectIndex = (maxWebProjects - webProjectIndex + 1) % maxWebProjects}>
+            👈
+        </button>
+        <h2>Web Projects</h2>
+        <button style="font-size: 2rem" on:click={() => webProjectIndex = (webProjectIndex + 1) % maxWebProjects}>
+            👉
+        </button>
+    </div>
+    <div class="flex flex-row-reverse gap-8 flex-wrap">
+        {#if webProjectIndex == 0}
+            <ThreeBody style="flex-grow: 1"></ThreeBody>
+            <div class="flex flex-col w-min" style="min-width: 30%; flex-grow: 3;">
+                <h2>3 Body Problem</h2>
+                <p>
+                    <b>Three Body</b> is a simulation of three gravitational bodies written in Rust and compiled to WebAssembly. The simulation is done on the GPU using
+                    WebGPU through <code>wgpu</code> and <code>wgsl</code>.
+                </p>
+            </div>
+        {/if}
+    </div>
+</FancyPanel>
 
 <style>
     h1 {

@@ -17,13 +17,15 @@
 	var paused = true;
 	var time_scale = 1.0;
 
+    export let style = "";
+    export let threeClass = "";
+
 	onMount(async () => {
 		await init(); // init initializes memory addresses needed by WASM and that will be used by JS/TS
         run();
 	});
 </script>
-<section id="hero-wasm-panel">
-    <h2>3 Body Problem</h2>
+<section id="hero-wasm-panel" {style} class={threeClass}>
     <div id="hero-wasm-container"></div>
     <section id="pause-play">
         {#if paused}
@@ -96,11 +98,6 @@
 </section>
 
 <style>
-	h2 {
-		font-size: 1.5rem;
-		font-weight: 600;
-	}
-
 	#hero-wasm-container {
 		display: flex;
 		overflow: clip;
