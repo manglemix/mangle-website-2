@@ -1,12 +1,12 @@
 <script lang="ts">
-  	import "../app.css";
+	import '../app.css';
 	import { setContext } from 'svelte';
 	import { writable } from 'svelte/store';
 
 	// Create a store and update it when necessary...
 	const highlightEmailCtx = writable();
 	highlightEmailCtx.set(false);
-	
+
 	// ...and add it to the context for child components to access
 	setContext('highlightEmail', highlightEmailCtx);
 	var highlightEmail = false;
@@ -27,11 +27,11 @@
 </script>
 
 <svelte:head>
-	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://www.najmanhusaini.com/">
-	<meta property="og:title" content="Najman Husaini">
-	<meta property="og:description" content="Najman Husaini's Personal Portfolio">
-	<meta property="og:image" content="https://www.najmanhusaini.com/favicon.png">
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://www.najmanhusaini.com/" />
+	<meta property="og:title" content="Najman Husaini" />
+	<meta property="og:description" content="Najman Husaini's Personal Portfolio" />
+	<meta property="og:image" content="https://www.najmanhusaini.com/favicon.png" />
 </svelte:head>
 
 <header>
@@ -59,7 +59,10 @@
 		</div>
 		<div class="footer-col">
 			{#if highlightEmail}
-				<a href="mailto:najmanhusaini20@gmail.com" id="highlighted-email" on:animationend={() => highlightEmail = false}
+				<a
+					href="mailto:najmanhusaini20@gmail.com"
+					id="highlighted-email"
+					on:animationend={() => (highlightEmail = false)}
 					><enhanced:img src="$lib/assets/mail.png" alt="Email" class="logo" /> Email</a
 				>
 			{:else}
@@ -127,19 +130,19 @@
 		font-weight: bold;
 	}
 
-    :global(button) {
-        background: rgb(51, 51, 51);
-        padding: 0.5rem 0.7rem 0.5rem 0.7rem;
-        border-radius: 0.6rem;
-        border: none;
-        font-weight: bold;
-        font-size: 1.1rem;
-        box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.7);
-    }
-    :global(button:active) {
-        background: rgb(32, 32, 32);
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.7);
-    }
+	:global(button) {
+		background: rgb(51, 51, 51);
+		padding: 0.5rem 0.7rem 0.5rem 0.7rem;
+		border-radius: 0.6rem;
+		border: none;
+		font-weight: bold;
+		font-size: 1.1rem;
+		box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.7);
+	}
+	:global(button:active) {
+		background: rgb(32, 32, 32);
+		box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.7);
+	}
 
 	#content {
 		width: 100%;

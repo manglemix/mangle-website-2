@@ -13,17 +13,35 @@
 <header id="greeting-header">
 	<section id="greeting">
 		{#if greetingIndex >= 32}
-			<h1>Hello World!</h1><p><span id="i-am">I am</span><span id="name-title">Najman Husaini</span></p>
+			<h1>Hello World!</h1>
+			<p><span id="i-am">I am</span><span id="name-title">Najman Husaini</span></p>
 		{:else if greetingIndex >= 19}
-			<h1>Hello World!</h1><p><span id="i-am">I am</span><span id="name-title">{"Najman Husaini".substring(0, greetingIndex - 18)}<div id="caret" /></span></p>
+			<h1>Hello World!</h1>
+			<p>
+				<span id="i-am">I am</span><span id="name-title"
+					>{'Najman Husaini'.substring(0, greetingIndex - 18)}
+					<div id="caret" /></span
+				>
+			</p>
 		{:else if greetingIndex >= 13}
-			<h1>Hello World!</h1><p><span id="i-am">{"I am".substring(0, greetingIndex - 13)}<div id="caret" /></span><span id="name-title" style="visibility: hidden">Najman Husaini</span></p>
+			<h1>Hello World!</h1>
+			<p>
+				<span id="i-am"
+					>{'I am'.substring(0, greetingIndex - 13)}
+					<div id="caret" /></span
+				><span id="name-title" style="visibility: hidden">Najman Husaini</span>
+			</p>
 		{:else if greetingIndex > 0}
-			<h1>{"Hello World!".substring(0, greetingIndex)}<div id="caret" /></h1><p><span id="name-title" style="visibility: hidden">Najman Husaini</span></p>
+			<h1>
+				{'Hello World!'.substring(0, greetingIndex)}
+				<div id="caret" />
+			</h1>
+			<p><span id="name-title" style="visibility: hidden">Najman Husaini</span></p>
 		{:else}
-			<h1 style="visibility: hidden">Hello World!</h1><p><span id="name-title" style="visibility: hidden">Najman Husaini</span></p>
+			<h1 style="visibility: hidden">Hello World!</h1>
+			<p><span id="name-title" style="visibility: hidden">Najman Husaini</span></p>
 		{/if}
-        <slot></slot>
+		<slot></slot>
 	</section>
 </header>
 
