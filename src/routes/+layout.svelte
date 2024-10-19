@@ -149,7 +149,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: stretch;
-		padding: 1rem;
+		/* padding: 1rem; */
 		margin-top: 4rem;
 		overflow: clip;
 	}

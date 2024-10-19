@@ -235,6 +235,8 @@
 		min-width: none;
 		max-width: 100%;
 		flex-grow: 1;
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 	section {
 		background-image: radial-gradient(rgb(65, 65, 65) 20%, transparent 73%);

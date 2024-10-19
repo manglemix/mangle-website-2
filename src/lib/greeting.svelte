@@ -77,6 +77,8 @@
 		flex-wrap: wrap;
 		gap: 2rem;
 		justify-content: space-between;
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 
 	#greeting-header {

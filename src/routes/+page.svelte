@@ -37,7 +37,7 @@
 </Greeting>
 
 <p id="accreditation">Photos taken by me with a Sony A7iii</p>
-<h1>Summary</h1>
+<h1 class="pl-4 pr-4">Summary</h1>
 <p id="summary">
 	&emsp;&emsp;&emsp;I am a Senior Year Software Development student at the University of Utah. My
 	degree has an emphasis on game development, and I have extensive experience with game engines such
@@ -227,6 +227,8 @@
 	}
 	#summary {
 		margin-top: 0.3rem;
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 	#robot-vid {
 		min-width: none;
@@ -259,6 +261,8 @@
 		top: -2rem;
 		color: rgb(211, 211, 211);
 		font-weight: lighter;
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 
 	#itch-embed {
@@ -285,6 +289,8 @@
 		gap: 0.7rem;
 		margin-top: 6rem;
 		margin-bottom: 6rem;
+		padding-left: 1rem;
+		padding-right: 1rem;
 	}
 
 	#outro p {
