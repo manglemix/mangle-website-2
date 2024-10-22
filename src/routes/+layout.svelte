@@ -150,6 +150,7 @@
 		flex-direction: column;
 		align-items: stretch;
 		/* padding: 1rem; */
+		padding-top: 1rem;
 		margin-top: 4rem;
 		overflow: clip;
 	}
