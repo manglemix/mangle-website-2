@@ -1,6 +1,6 @@
 import { createClient } from 'redis';
-import { PING_REST_API_URL, PING_REST_API_PORT, PING_REST_API_TOKEN } from '$env/static/private';
-import { getAll, type EdgeConfigClient } from '@vercel/edge-config';
+import { PING_REST_API_URL, PING_REST_API_PORT, PING_REST_API_TOKEN, EDGE_CONFIG } from '$env/static/private';
+import { createClient as createVClient } from '@vercel/edge-config';
 
 export const actions = {
 	default: async ({ request, fetch }) => {
@@ -13,17 +13,18 @@ export const actions = {
         });
         await pings.connect();
 		const data = await request.formData();
-        const config = await getAll() as EdgeConfigClient;
+        const config = createVClient(EDGE_CONFIG);
         
         const valid_passkeys = (await config.get("valid_passkeys")) as string;
-        const valid_passkets_list = valid_passkeys.split(",");
+        const valid_passkeys_list = valid_passkeys.split(",");
 
         const passkey = data.get("passkey") as string;
-        if (!valid_passkets_list.includes(passkey)) {
+        if (!valid_passkeys_list.includes(passkey)) {
             return { success: false };
         }
 
         const addr = await pings.get("ping_addr") as string;
+        console.log(addr);
 		fetch(new URL(addr), {
             method: "POST",
             body: passkey

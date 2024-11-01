@@ -5,7 +5,10 @@
 </script>
 
 <form method="POST" use:enhance>
-    <input type="text" id="passkey" required>
+    <label for="passkey">
+        Passkey
+    </label>
+    <input type="text" id="passkey" name="passkey" required>
     <button>
         Ping Me!
     </button>
@@ -37,10 +40,16 @@
         background-color: red;
     }
 
+    form button {
+        margin-top: 0.7rem;
+    }
+    form label {
+        font-weight: bold;
+    }
+
     form {
         display: flex;
         flex-direction: column;
-        gap: 1rem;
         align-items: start;
     }
 
