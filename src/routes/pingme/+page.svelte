@@ -2,6 +2,12 @@
     import { enhance } from '$app/forms'; // Import the enhance action
 
     export let form;
+
+    $: if (form) {
+        setTimeout(() => {
+            form = null;
+        }, 3000);
+    }
 </script>
 
 <form method="POST" use:enhance>

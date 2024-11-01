@@ -49,7 +49,8 @@ async fn main() {
 
     {
         let client = reqwest::Client::new();
-        client.post("https://www.manglemix.com/pingme/update").body(tun.url().to_string()).send().await.unwrap();
+        let body = format!("{{\"url\":\"{}\"}}", tun.url());
+        client.post("https://www.manglemix.com/pingme/update").body(body).header("Content-Type", "application/json").send().await.unwrap();
     }
     
     axum::Server::builder(tun)
