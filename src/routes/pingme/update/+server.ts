@@ -11,8 +11,7 @@ export async function POST({ request }) {
     });
     await pings.connect();
     
-	const addr = await request.text();
-    console.log(addr);
-    pings.set("ping_addr", addr);
+	const body = await request.json();
+    pings.set("ping_addr", body.url);
 	return new Response(null, { status: 204 });
 }
