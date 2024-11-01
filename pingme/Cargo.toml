@@ -1,0 +1,12 @@
+[package]
+name = "pingme"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.7.7"
+http = "1.1.0"
+notify-rust = "4.11.3"
+reqwest = "0.12.9"
+tokio = "1.41.0"
+public-ip = "0.2.2"

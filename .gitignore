@@ -7,6 +7,7 @@ node_modules
 /build
 
 /src/hero-wasm/target
+/pingme/target
 
 # OS
 .DS_Store
