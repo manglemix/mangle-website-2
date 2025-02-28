@@ -312,6 +312,8 @@ public class MyProgram &lbrace;
 </p>
 
 <pre>
+// In lecture, Shape was an interface.
+// We'll learn about that later on in this page
 public abstract class Shape &lbrace;
     public abstract void draw();
 &rbrace;
@@ -424,6 +426,9 @@ public class Sorter &lbrace;
 </p>
 
 <pre>
+// There is already a Comparable interface in Java
+// but it looks slightly different as it uses generics.
+// Something you will learn about soon
 public interface Comparable &lbrace;
     // If this object is less than other, return a negative number
     // If this object is equal to other, return 0
