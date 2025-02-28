@@ -26,14 +26,6 @@
 	});
 </script>
 
-<svelte:head>
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://www.najmanhusaini.com/" />
-	<meta property="og:title" content="Najman Husaini" />
-	<meta property="og:description" content="Najman Husaini's Personal Portfolio" />
-	<meta property="og:image" content="https://www.najmanhusaini.com/favicon.png" />
-</svelte:head>
-
 <header>
 	<nav>
 		<a href="/"><h2>Home</h2></a>
