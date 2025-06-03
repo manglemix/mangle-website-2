@@ -11,6 +11,7 @@
 	{@html base16Monokai}
 </svelte:head>
 
+<a href="/resume.pdf">Download PDF</a>
 <embed id="resume-pdf" src="/resume.pdf" type="application/pdf" />
 
 <h2>Resume Source</h2>
