@@ -46,21 +46,22 @@
 <p id="summary">
 	&emsp;&emsp;&emsp;I am a Senior Year Software Development student at the University of Utah. My
 	degree has an emphasis on game development, and I have extensive experience with game engines such
-	as Godot and Unreal Engine 5. I am also the programming team lead of Utah Student Robotics, a
+	as Godot and Unreal Engine 5. I was also the programming team lead of Utah Student Robotics, a
 	student organization that competes in the annual NASA Lunabotics competition against 50 teams.
 	Factoring in my coursework and experience as a Teaching Assistant for the School of Computing, I
 	have formidable talent in multiple domains of software development along with the confidence to
-	communicate and collaborate effectively.
+	communicate and collaborate effectively, and I demostrated this as an intern at Silverlake Axis
+	and I am looking to transition into the industry.
 </p>
 <FancyPanel panelClass="mt-16 flex flex-col" id="robotics">
 	<h2 class="mb-3 text-center flex flex-row justify-center self-stretch">
 		<enhanced:img src="$lib/assets/usr.png" alt="Utah Student Robotics" id="usr-logo" />Utah Student
-		Robotics
+		Robotics 1st Place
 	</h2>
 	<div class="flex flex-row flex-wrap gap-4">
 		<div id="robot-vid">
 			<iframe
-				src="https://www.youtube.com/embed/OvzOrHbLd_M?si=4wOgsB6juSaCcEqy&amp;start=743"
+				src="https://www.youtube.com/embed/riIPlJ0fpuw?si=d1aYAoKkQ-2I_coQ&amp;start=33194"
 				title="YouTube video player"
 				frameborder="0"
 				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -70,16 +71,14 @@
 		</div>
 		<p style="min-width: 50%; width: min-content; flex-grow: 3;">
 			The competition is simple. Move the most amount of material from the excavation zone into the
-			dump zone, and don't hit any rocks on the way. In 2024, we did just that. We moved the most
-			amount of moon dirt (<a
+			dump zone, and don't hit any rocks on the way. In 2024, we got 3rd place doing that, and in 2025
+			we got 1st place. We moved the most amount of moon dirt (<a
 				href="https://spaceresourcetech.com/products/lhs-1-lunar-highlands-simulant">LHS-1</a
-			>) out of all 50 teams from universities around the US and the military. My main contribution
-			was implementing all of the software that allowed 2 pilots to simultaneously commandeer the
-			robot wirelessly and in real time using 6 camera feeds streamed using FFmpeg over RTP. We also
-			received points for being able to dig and dump autonomously using state machines. Due to our
-			robust and noise-resistant communication protocol over UDP, we had the smallest bandwidth
-			usage whilst having enough camera coverage and fidelity to avoid using the arena provided
-			cameras.
+			>) both years out of all 50+ teams from universities around the US and the military. My team and I
+			developed the mission control software and robot systems almost from scratch in Rust (still the only
+			team to do so) and we received numerous awards. Not only was our bandwidth the smallest, we were also
+			the only team capable of streaming 7 cameras at once along with telemetry and remote control, which
+			earned us an award in wireless communication.
 		</p>
 	</div>
 	<div class="flex flex-row mt-8 flex-wrap gap-8 pb-4">
@@ -87,14 +86,15 @@
 			<h2>Technology</h2>
 			<p>
 				The entire robot is programmed with Rust. <code>tokio</code> is used as the core model of
-				execution, and <code>wgpu</code> with compute shaders written in <code>WGSL</code> is used
-				for any GPU programming. To promote rapid prototyping, a feature-complete robotics framework
-				was developed from the ground up in the footsteps of the Robot Operating System. This
-				framework was called <code>unros</code> and is now superceeded by
+				execution, <code>rayon</code> for CPU level parallelism, and <code>wgpu</code> with compute
+				shaders written in <code>WGSL</code> is used for any GPU programming. The code base can be
+				explored at 
 				<a href="https://github.com/utahrobotics/lunadev-2025/tree/main/urobotics"
-					><code>urobotics</code></a
+					><code>lunadev-2025</code></a
 				> for the 2025 competition. The mission control software is developed in Godot and is used to
-				visualize the robot's state and direct the robot's autonomous actions.
+				visualize the robot's state and direct the robot's autonomous actions. Communication uses a
+				protocol that we developed for extreme minimalism over UDP, and we created a custom Behavior
+				Tree implementation that is strongly typed and allows for certain compile-time safety checks.
 			</p>
 		</div>
 		<Roulette
@@ -138,6 +138,21 @@
 			it.
 		</p>
 	</div>
+	<div id="steam-embed">
+		<iframe src="https://store.steampowered.com/widget/3566060/" frameborder="0" width="500" height="190" title="Steam Embed"></iframe>
+	</div>
+	
+	<p class="self-center" style="max-width: 45rem">
+		Tiny Sheriff is the last video game I helped develop at the University of Utah. It is one of 6 games of
+		the senior year undergraduates and each team is comprised of 30+ students. The game is developed exclusively
+		in Unity with C#, and it represents a 2 semester effort from August 2024 to May 2025. The game includes full
+		integration with Steam including Cloud Saves, Achievements, and Statistics. While the game is certainly an
+		achievement for all of us in the team, we struggled with leadership without adequate support from faculty, and
+		I believe we would all be able to create a much more compelling game with more mentoring.
+	</p>
+	<p class="italic self-center mt-4">
+		Honorable mention: <a href="https://manglemix.itch.io/universe-within">Universe Within</a>
+	</p>
 </FancyPanel>
 
 <FancyPanel panelClass="flex flex-col gap-4 mt-16 items-stretch" id="games">
@@ -274,6 +289,12 @@
 		width: 100%;
 		margin-top: 2rem;
 		margin-bottom: 2rem;
+	}
+
+	#steam-embed {
+		width: 100%;
+		margin-top: 2rem;
+		padding-left: calc(50% - 250px);
 	}
 
 	#itch-embed iframe {
