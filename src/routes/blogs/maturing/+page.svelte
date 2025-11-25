@@ -14,12 +14,24 @@
     With the rapidly approaching graduation date I was once again faced with this fear. This was further compounded by the fact that I did not see it coming; Really, I did not. I will explain the mistake later on, but I had assumed I would have a few months of 2026 to enjoy in the US but that was not true. To help me come to terms with my departure, I decided to write out my entire university life since it was obviously a huge part of my life that is now over, and my brain is spinning in circles trying to reason over it all. I have been told I have good memory and recall, and that my life in the US was quite interesting, so I hope that you find some entertainment in this mental exercise I've put upon myself.
 </p>
 
-<p>
+<p class="music">
     This next fact is not that important, but this is the <a href="https://youtu.be/w9I3GSQpO7M?si=KWjYk0B-wW65RKf-">album</a> that I am listening to as I write, if you wanted to get in the same headspace.
+</p> 
+
+<h2>
+    Pre 2021
+</h2>
+
+<p class="subtitle">
+    A quick summary
+</p>
+
+<p>
+    For those of you who don't know, I am a Malaysian with a Malay ethnicity. I was raised as a Muslim but I am not myself religious. I studied in an international school for most of my life and far enjoyed speaking English to Malay. Apparently, this is not uncommon amongst the Malaysian youth. My friends were all Chinese, and my education was British. While there is a great deal to be talked about in my life before 2021, I would save that for a future time. In this story, I want to talk about my life moving to the US and eventually back.
 </p>
 
 <h2>
-    2021
+    2021 January - August
 </h2>
 
 <p class="subtitle">
@@ -54,6 +66,10 @@
     The last few things I needed was a laptop and some clothes for the weather. My mother being the thoughtful one picked out some good clothes for the temperature so I wouldn't have to, and I asked my friends for laptop recommendations. While I like technology, searching for the best deals was always annoying, and I had Damien who always knew the best option anyway. On a call with my friends, I joked about not having a hard drive even though I did &mdash; I don't remember why. A few hours later, my good friend Jun Kit who was on that call showed up at my gate and wished me luck on my journey and actually handed me a hard drive. It was very funny.
 </p>
 
+<p class="music">
+    At this point of writing I started listening to <a href="https://youtu.be/Vd7ssAtckko?si=yv4IHjqEUaZ0Ak_C">this</a>.
+</p>
+
 <p>
     It's a common joke that if you dug through the ground in the US all the way to the other side, you would emerge in China. Given that Malaysia is also in that part of the Earth, it stands to reason that Malaysia would also be about as far from the US as you can be. It took three flights to get the US. I had never travelled for that long, and none of my previous vacations prepared me for that. At that time, I had trouble sleeping, so it was downright impossible to sleep on those flights. I have no memory of this journey, and I exclusively rely on one image that I took of my mom and I after touching down in SFO. I don't remember what flights we took to get there, but my mom surely does. I remember the feeling of exhaustion however. Never before was I that tired. It got to the point that my breaths were heavy. There were also some wildfires going on at the time, and I had to keep my mask on. On the flight into San Francisco, I had hoped to see the classic cityscape from Big Hero 6, but all I saw was orangish-gray dirt and a brown fog blanketing everthing. It looked desolate.
 </p>
@@ -74,8 +90,32 @@
     After that little nap, it was getting dark but not late enough to sleep. I had to stay awake, so we watched whatever was on TV. That was my first exposure to American advertising. Malaysian ads were so boring in comparison. I don't know if I was just that tired, but the ads I saw were funny and entertaining and I just loved their creativity. After rotting my brain with that for a while, I finally fell asleep properly this time. Despite the tremendous exhaustion, I believe I woke up early. I woke up full of energy however, so I figured I should stay awake. I brought my laptop out to the common area and checked the time in Malaysia. My friends should have still been awake, so I called them. I remember being dressed in just gray sweatpants and a T-Shirt and feeling so cold. From my High School Geography class I remembered that deserts have a high diurnal range so it can be cold at night and scorching in the day.
 </p>
 
+<p class="music">
+    And now I began listening to <a href="https://youtu.be/8B4soa7z098?si=rag8V23KBhZwOkYm">this</a>. It was getting warm in my room so I opened the window. I usually keep it open but there was a party of leaf-blowers. There was no noise for a while so I felt fine opening it again but not even 10 minutes later, some major construction started.
+</p>
+
 <p>
     That there is about the last of the details I can remember from my first day in SLC. All my memories after that are logically inferred, with a few genuine remembered experiences. I know we moved to our next accomodation which was an AirBnb. It was in a really strange building that I had only ever seen on TV where its a two floor, six apartment building. Each apartment's front door was on the same side, and the walkways were open. Later on I learned that this AirBnb was in the Avenues so I guess you should be able to find the building that matches that description.
+</p>
+
+<p>
+    At some point my mother introduced me to the Malaysian community here in SLC, which I wasn't even aware was a thing. Somehow, she found a handful of Malaysian mothers, a few of which she knew before coming to the US. I brought this up to my friend some time ago and he laughed and just admitted that asian mothers simply have that ability. We ate at a Somalian restaurant, which was even stranger to me. I guess its one of the few things here that approximates some Malay food. However, I really did not like it. I should also point out at this time that I was a vegetarian, or at least trying to be. It was then that I was introduced to Aiman, a Malaysian student at the U. He was actually a graduate student if I remember correctly, but he still spoke Malay like he never left, but when he spoke to me he spoke English like an American. Of course, everyone there was religious except for me, and in my experience Muslims tend to stop talking to ex-Muslims as soon as they find out. Regardless, the moms wanted Aiman to keep in touch with me so that I can get help when I need it; Aiman had a car.
+</p>
+
+<p>
+    One of the moms brought us to Costco for our first times. This Costco also happened to be the largest Costco for a considerable distance. I had never seen a store that massive. It seemed more like an industrial warehouse than a store, but we went ahead an bought groceries like normal except the scale was massive. We bought cookies, dumplings, steaks I think, and melatonin. You see, even though I had not fully recovered from the disastrous sleep deprivation I could not get a good sleep because of the jet lag and my mother's snoring. Initially, I wanted to by drowsy sleep medication since that was the only thing I knew that worked. I had never before heard of melatonin until my mom's friend showed it to me. That was a goddamn revelation, and I kept that jar of gummies until 2025 when I left it behind in Malaysia. However, on every flight I brought a small bag of gummies in case I needed help.
+</p>
+
+<p>
+    I remember one morning waking up and seeing a deep blue shade coming in through the windows. Outside, the cloudless sky was emanating such an enchanting blue glow that I had never seen before. The temperature was also cool but not frigid, and the air had a high amount of humidity which comforted my lungs. It was one of the best climates I had ever felt. We took the opportunity to go explore the Red Butte botanical garden and enjoyed all the pretty flowers and herbs. I was wearing my brother's slippers which were much too big for me and it allowed a bee to fly in between my toes. I reflexively clenched my toes and instigated my first ever bee sting. How unfortunate would it have been if I was allergic. We explored some of campus and stumbled upon a crowd of students. Apparently, it was orientation day, and I had no idea. I joined in and was introduced to my dorm, Kahlert Village. It had only recently opened but it was not done yet. Some areas were still closed off. It was also at this time that I learned that I had to register for my own classes. School was about to start in less than a week and I had nothing prepared. After having no assistance in picking classes I cobbled together a strange curriculum. I was at least able to get Calculus 1 in there which is important for my degree, but I picked an introductory Physics course instead of the actual Physics course I needed. I wasn't sure how difficult college was going to be. This one class I took always gets a laugh out of my friend who I will bring up later; I enrolled in an English Grammar class. I had always enjoyed writing but my High School teacher warned me about my grammar so I decided to take a class on it. I would not recommend that class as it was so technical.
+</p>
+
+<p>
+    We moved some of my luggage into my dorm ahead of schedule just so that we wouldn't be caught off guard. It was completely empty, save for one room. My mother wanted me to start socializing so I knocked and discovered my Resident Assistant. He was playing a basketball game with a friend already, and I don't play basketball nor enjoy it, so I didn't achieve much there. When the official moving in day came along there was a lot of noise. People were bringing in loads of furniture, and I watched a family bring in a large flatscreen TV into a cramped elevator. The empty common area on my floor was now filled with loads of college students, all staring at me as I walked in. They were listening to the RA give a talk which I had all but completely missed. Up to this point, I had no idea who my roommate was. I knew he was a guy because they didn't do mixed gender rooms in this red state. While setting up the last of my stuff, he entered the room. His name was Will and he was from Alaska. He was paler than the clean dorm walls but very kind. He had brought a whole gaming set up all the way from his home, and he shared the same major as I did.
+</p>
+
+<p>
+    I will talk about my classes in the next chapter, but I want to skip ahead to my birthday and such since that is around the time my mother leaves me on my own. My relationship with my mother at the time was rocky, and I only ever appreciated what she did for me at the time in hindsight. I was still angry at her during my birthday and I refused to play along with the celebration. She brought me to Cheesecake factory and did everything right. She didn't invite a bunch of people I didn't know, and she didn't ask the restaurant to sing happy birthday. She just got me a cheesecake which she knows I like and we had our food. After that day, she left to go explore the US. I'm not fully sure of what she did, but at some point she went skydiving which blew my mind. On her last few days she returned back to SLC and I made her dinner. I did not come with her to the airport though. Once she left, I was all alone in the US.
 </p>
 
 <style>
@@ -104,5 +144,9 @@
     a {
         text-decoration: underline;
         color: rgb(119, 119, 234);
+    }
+    .music {
+        font-style: italic;
+        color: gray;
     }
 </style>
